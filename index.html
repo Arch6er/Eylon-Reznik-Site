@@ -194,15 +194,22 @@
 
   /* ---------- PROJECT DETAIL ---------- */
   #view-project{ padding-top: 6.5rem; }
-  .proj-hero{ width:100%; aspect-ratio: 16/8; background-size:cover; background-position:center; }
+  .proj-hero{ width:100%; aspect-ratio: 16/8; background-size:cover; background-position:center; position:relative; }
   .proj-head{ padding: 2.6rem 0 3rem; }
+  #projTextWrap{ max-width:60ch; margin-left:auto; margin-right:0; text-align:right; }
   .proj-head .meta{ font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.5; margin-top:0.6rem; }
-  .proj-head h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:0.8rem; max-width:22ch; }
-  .proj-desc{ font-size:1rem; line-height:1.85; color: rgba(20,20,15,0.72); max-width:60ch; margin-top:1.6rem; }
-  .proj-gallery{ display:grid; grid-template-columns: repeat(2,1fr); gap:1.5rem; padding: 3rem 0 6rem; }
-  .proj-gallery .g{ aspect-ratio: 4/3; background-size:cover; background-position:center; }
+  .proj-head h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:0.8rem; }
+  .proj-desc p{ font-size:1rem; line-height:1.85; color: rgba(20,20,15,0.72); margin-top:1.2rem; }
+  .proj-desc p.proj-status{ font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; opacity:0.6; }
+  .proj-gallery{ columns: 2; column-gap:1.5rem; padding: 3rem 0 6rem; }
+  .proj-gallery .g{ width:100%; margin-bottom:1.5rem; break-inside:avoid; display:block; }
+  .proj-gallery .g img{ width:100%; height:auto; display:block; }
+  .proj-nav{ position:absolute; top:50%; transform:translateY(-50%); width:48px; height:48px; border-radius:50%; background:rgba(0,0,0,0.35); color:#fff; border:none; font-size:1.3rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s ease; z-index:5; }
+  .proj-nav:hover{ background:rgba(0,0,0,0.6); }
+  .proj-nav.prev{ left:1.5rem; }
+  .proj-nav.next{ right:1.5rem; }
   .back-link{ display:inline-flex; align-items:center; gap:0.5rem; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.6; border-bottom:1px solid currentColor; padding-bottom:2px; }
-  @media (max-width:900px){ .proj-gallery{ grid-template-columns:1fr; } }
+  @media (max-width:900px){ .proj-gallery{ columns:1; } .proj-nav{ width:38px; height:38px; font-size:1rem; } .proj-nav.prev{ left:0.8rem; } .proj-nav.next{ right:0.8rem; } }
 
   /* ---------- CONTACT ---------- */
   #view-contact{ display:flex; flex-direction:column; }
@@ -273,11 +280,11 @@
   <div class="wrap grid">
     <a class="cell" href="#" data-project="0"><div class="fill" style="background-image:url('img-site/355-jrgl/jrgl-1.webp');"></div>
       <div class="cell-label" dir="rtl"><div class="name">המרגלית, גילה</div><div class="meta">עירוב שימושים — ירושלים</div></div></a>
-    <a class="cell" href="#" data-project="1"><div class="fill" style="background-image:url('img-site/330-jrn2/jrn2-1.webp');"></div>
+    <a class="cell" href="#" data-project="1"><div class="fill" style="background-image:url('img-site/330-jrn2/jrn2-1.webp'); background-position:center 75%;"></div>
       <div class="cell-label" dir="rtl"><div class="name">הנורית</div><div class="meta">פינוי בינוי — ירושלים</div></div></a>
     <a class="cell" href="#" data-project="2"><div class="fill" style="background-image:url('img-site/347-jrsh/jrsh-1.webp');"></div>
       <div class="cell-label" dir="rtl"><div class="name">מגדל שעון השמש</div><div class="meta">מגדל — ירושלים</div></div></a>
-    <a class="cell" href="#" data-project="3"><div class="fill" style="background-image:url('img-site/352-jrsm/jrsm-1.webp');"></div>
+    <a class="cell" href="#" data-project="3"><div class="fill" style="background-image:url('img-site/352-jrsm/jrsm-1.webp'); background-position:center 75%;"></div>
       <div class="cell-label" dir="rtl"><div class="name">סן מרטין</div><div class="meta">פינוי בינוי — ירושלים</div></div></a>
     <a class="cell" href="#" data-project="4"><div class="fill" style="background-image:url('img-site/357-shly/shly-1.webp');"></div>
       <div class="cell-label" dir="rtl"><div class="name">שלום יהודה</div><div class="meta">ירושלים</div></div></a>
@@ -288,12 +295,17 @@
 
 <!-- PROJECT DETAIL -->
 <div class="view" id="view-project">
-  <div class="proj-hero" id="projHero"></div>
+  <div class="proj-hero" id="projHero">
+    <button class="proj-nav prev" id="projPrev" aria-label="Previous project">&larr;</button>
+    <button class="proj-nav next" id="projNext" aria-label="Next project">&rarr;</button>
+  </div>
   <div class="wrap proj-head">
     <a href="#" class="back-link" data-goto="projects">&larr; Back to Projects</a>
-    <div class="meta" id="projMeta">Category — Location</div>
-    <h1 id="projTitle">Project Name</h1>
-    <p class="proj-desc" id="projDesc">Project description goes here — add details about the site, program, design approach, and completion date once available.</p>
+    <div id="projTextWrap" dir="rtl">
+      <div class="meta" id="projMeta">Category — Location</div>
+      <h1 id="projTitle">Project Name</h1>
+      <div class="proj-desc" id="projDesc"></div>
+    </div>
   </div>
   <div class="wrap proj-gallery" id="projGallery"></div>
 </div>
@@ -392,50 +404,71 @@
   // NOTE: filenames below assume .webp — update the extension here if your exported files use .jpg/.png instead.
   const projects = [
     { name:'המרגלית, גילה', meta:'עירוב שימושים — ירושלים',
-      desc:'לקוח: חב\' האחים חסיד. מתחם בעירוב שימושים בסמיכות לתחנה האחרונה של הרק"ל, המהווה דופן פעילה ואינטנסיבית לרחוב ולתחנה. המתחם כולל 2 מגדלי מגורים בני 27 ו-33 קומות וכ-600 יח"ד מעל מסד בן 4 קומות הפונה לרחוב המרגלית ומסד תחתון הפונה לנוף וכולל שימושי מסחר, תעסוקה תרבות ופנאי, שימושים ציבוריים, אודיטוריום ותצפית לנוף. סטטוס: עמידה בתנאי סף.',
+      client:'לקוח: חב\' האחים חסיד',
+      body:'מתחם בעירוב שימושים בסמיכות לתחנה האחרונה של הרק"ל, המהווה דופן פעילה ואינטנסיבית לרחוב ולתחנה. המתחם כולל 2 מגדלי מגורים בני 27 ו-33 קומות וכ-600 יח"ד מעל מסד בן 4 קומות הפונה לרחוב המרגלית ומסד תחתון הפונה לנוף וכולל שימושי מסחר, תעסוקה תרבות ופנאי, שימושים ציבוריים, אודיטוריום ותצפית לנוף.',
+      status:'סטטוס: עמידה בתנאי סף',
       hero:'img-site/355-jrgl/jrgl-1.webp',
       gallery:['img-site/355-jrgl/jrgl-main.webp','img-site/355-jrgl/jrgl-2.webp','img-site/355-jrgl/jrgl-3.webp','img-site/355-jrgl/jrgl-4.webp','img-site/355-jrgl/jrgl-5.webp'] },
     { name:'הנורית', meta:'פינוי בינוי — ירושלים',
-      desc:'לקוח: חב\' עינב. פינוי בינוי ל-128 יח"ד קיימות והקמת 491 יח"ד חדשות במתחם 2, כולל תכנון מתחם מבני הציבור לחינוך וקהילה במסגרת תכנית להתחדשות עירונית ברחוב הנורית — תמ"ל 2020 שבתוקף. סטטוס: תב"ע מאושרת.',
+      client:'לקוח: חב\' עינב',
+      body:'פינוי בינוי ל-128 יח"ד קיימות והקמת 491 יח"ד חדשות במתחם 2, כולל תכנון מתחם מבני הציבור לחינוך וקהילה במסגרת תכנית להתחדשות עירונית ברחוב הנורית — תמ"ל 2020 שבתוקף.',
+      status:'סטטוס: תב"ע מאושרת',
       hero:'img-site/330-jrn2/jrn2-1.webp',
       gallery:['img-site/330-jrn2/jrn2-main.webp','img-site/330-jrn2/jrn2-2.webp','img-site/330-jrn2/jrn2-3.webp','img-site/330-jrn2/jrn2-4.webp','img-site/330-jrn2/jrn2-5.webp'] },
     { name:'מגדל שעון השמש', meta:'מגדל — ירושלים',
-      desc:'לקוח: גולדן סיטי.',
+      client:'לקוח: גולדן סיטי', body:'', status:'',
       hero:'img-site/347-jrsh/jrsh-1.webp',
       gallery:['img-site/347-jrsh/jrsh-main.webp','img-site/347-jrsh/jrsh-2.webp','img-site/347-jrsh/jrsh-3.webp'] },
     { name:'סן מרטין', meta:'פינוי בינוי — ירושלים',
-      desc:'לקוח: חב\' אבגד. פינוי בינוי והקמת 90 יח"ד חדשות.',
+      client:'לקוח: חב\' אבגד',
+      body:'פינוי בינוי והקמת 90 יח"ד חדשות.', status:'',
       hero:'img-site/352-jrsm/jrsm-1.webp',
       gallery:['img-site/352-jrsm/jrsm-main.webp'] },
     { name:'שלום יהודה', meta:'ירושלים',
-      desc:'לקוח: קו התור.',
+      client:'לקוח: קו התור', body:'', status:'',
       hero:'img-site/357-shly/shly-1.webp',
       gallery:['img-site/357-shly/shly-main.webp','img-site/357-shly/shly-2.webp'] },
     { name:'אחד העם', meta:'ירושלים',
-      desc:'',
+      client:'', body:'', status:'',
       hero:'img-site/362-jreh/jreh-1.webp',
       gallery:['img-site/362-jreh/jreh-main.webp','img-site/362-jreh/jreh-2.webp','img-site/362-jreh/jreh-3.webp','img-site/362-jreh/jreh-4.webp','img-site/362-jreh/jreh-5.webp','img-site/362-jreh/jreh-6.webp','img-site/362-jreh/jreh-7.webp','img-site/362-jreh/jreh-8.webp'] },
   ];
 
+  let currentProjectIndex = 0;
+
   function openProject(i){
+    currentProjectIndex = i;
     const p = projects[i];
     document.getElementById('projHero').style.backgroundImage = `url('${p.hero}')`;
-    const metaEl = document.getElementById('projMeta');
-    metaEl.textContent = p.meta; metaEl.setAttribute('dir','rtl');
-    const titleEl = document.getElementById('projTitle');
-    titleEl.textContent = p.name; titleEl.setAttribute('dir','rtl');
+    document.getElementById('projMeta').textContent = p.meta;
+    document.getElementById('projTitle').textContent = p.name;
     const descEl = document.getElementById('projDesc');
-    descEl.textContent = p.desc; descEl.setAttribute('dir','rtl');
+    descEl.innerHTML = '';
+    [ {text:p.client, cls:''}, {text:p.body, cls:''}, {text:p.status, cls:'proj-status'} ]
+      .filter(line => line.text)
+      .forEach(line => {
+        const para = document.createElement('p');
+        if(line.cls) para.className = line.cls;
+        para.textContent = line.text;
+        descEl.appendChild(para);
+      });
     const gallery = document.getElementById('projGallery');
     gallery.innerHTML = '';
     p.gallery.forEach(src => {
       const div = document.createElement('div');
       div.className = 'g';
-      div.style.backgroundImage = `url('${src}')`;
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = p.name;
+      img.loading = 'lazy';
+      div.appendChild(img);
       gallery.appendChild(div);
     });
     goTo('project');
   }
+
+  document.getElementById('projPrev').addEventListener('click', () => openProject((currentProjectIndex - 1 + projects.length) % projects.length));
+  document.getElementById('projNext').addEventListener('click', () => openProject((currentProjectIndex + 1) % projects.length));
 
   document.querySelectorAll('[data-project]').forEach(el => {
     el.addEventListener('click', (e) => {
