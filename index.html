@@ -193,7 +193,7 @@
   }
 
   /* ---------- PROJECT DETAIL ---------- */
-  #view-project{ padding-top: 6.5rem; }
+  #view-project{ padding-top: 0; }
   .proj-hero{ width:100%; aspect-ratio: 16/8; background-size:cover; background-position:center; position:relative; }
   .proj-head{ padding: 2.6rem 0 3rem; }
   #projTextWrap{ max-width:60ch; margin-left:auto; margin-right:0; text-align:right; }
@@ -201,15 +201,20 @@
   .proj-head h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:0.8rem; }
   .proj-desc p{ font-size:1rem; line-height:1.85; color: rgba(20,20,15,0.72); margin-top:1.2rem; }
   .proj-desc p.proj-status{ font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; opacity:0.6; }
-  .proj-gallery{ columns: 2; column-gap:1.5rem; padding: 3rem 0 6rem; }
-  .proj-gallery .g{ width:100%; margin-bottom:1.5rem; break-inside:avoid; display:block; }
+  .proj-gallery{ columns: 2; column-gap:2.2rem; padding: 3rem 0 7rem; }
+  .proj-gallery .g{ width:100%; margin-bottom:2.2rem; break-inside:avoid; display:block; background:#fff; padding:10px; box-shadow:0 14px 30px rgba(0,0,0,0.14); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .proj-gallery .g:hover{ transform: translateY(-6px); box-shadow:0 20px 38px rgba(0,0,0,0.18); }
+  .proj-gallery .g:nth-child(4n+2){ margin-top:2.6rem; }
+  .proj-gallery .g:nth-child(4n+4){ margin-top:1.2rem; }
   .proj-gallery .g img{ width:100%; height:auto; display:block; }
-  .proj-nav{ position:fixed; top:50%; transform:translateY(-50%); width:48px; height:48px; border-radius:50%; background:rgba(0,0,0,0.35); color:#fff; border:none; font-size:1.3rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.3s ease; z-index:90; }
-  .proj-nav:hover{ background:rgba(0,0,0,0.6); }
-  .proj-nav.prev{ left:1.5rem; }
-  .proj-nav.next{ right:1.5rem; }
+  .proj-nav{ position:fixed; top:50%; transform:translateY(-50%); width:64px; height:64px; border-radius:50%; background:transparent; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.28; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35)); transition: opacity 0.3s ease; z-index:90; }
+  .proj-nav svg{ width:20px; height:20px; }
+  .proj-nav path{ fill:none; stroke:#fff; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  .proj-nav:hover, .proj-nav:focus-visible{ opacity:0.9; }
+  .proj-nav.prev{ left:1rem; }
+  .proj-nav.next{ right:1rem; }
   .back-link{ display:inline-flex; align-items:center; gap:0.5rem; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.6; border-bottom:1px solid currentColor; padding-bottom:2px; }
-  @media (max-width:900px){ .proj-gallery{ columns:1; } .proj-nav{ width:38px; height:38px; font-size:1rem; } .proj-nav.prev{ left:0.8rem; } .proj-nav.next{ right:0.8rem; } }
+  @media (max-width:900px){ .proj-gallery{ columns:1; } .proj-nav{ width:48px; height:48px; } .proj-nav svg{ width:16px; height:16px; } .proj-nav.prev{ left:0.4rem; } .proj-nav.next{ right:0.4rem; } }
 
   /* ---------- CONTACT ---------- */
   #view-contact{ display:flex; flex-direction:column; }
@@ -217,8 +222,9 @@
   .contact h1{ font-size: clamp(2rem, 5vw, 4.4rem); line-height:1.05; max-width:16ch; }
   .contact-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap:4vw; margin-top:4.5rem; }
   .contact-block .eyebrow{ color: rgba(250,250,249,0.5); }
-  .contact-block a, .contact-block p{ font-size:1.05rem; line-height:2.1; color: rgba(250,250,249,0.85); }
+  .contact-block a, .contact-block p{ font-size:1.05rem; line-height:2.1; color: rgba(250,250,249,0.85); overflow-wrap:anywhere; word-break:break-word; }
   .contact-block a{ border-bottom: 1px solid rgba(250,250,249,0.25); }
+  body{ overflow-x:hidden; }
   .foot{ display:flex; justify-content:space-between; align-items:center; padding: 1.8rem 3rem; border-top:1px solid rgba(250,250,249,0.12); font-size:0.68rem; letter-spacing:0.08em; opacity:0.45; }
 
   @media (max-width: 900px){
@@ -264,7 +270,6 @@
     <div class="slide"><div class="slide-img" style="background-image:url('img-site/357-shly/shly-main.webp');"></div></div>
     <div class="slide"><div class="slide-img" style="background-image:url('img-site/362-jreh/jreh-main.webp');"></div></div>
     <div class="hero-caption">
-      <div class="num" id="slideNum">01 — המרגלית, גילה</div>
       <div class="title" id="slideTitle" dir="rtl">המרגלית, גילה</div>
     </div>
     <div class="hero-dots" id="heroDots"></div>
@@ -296,8 +301,8 @@
 <!-- PROJECT DETAIL -->
 <div class="view" id="view-project">
   <div class="proj-hero" id="projHero">
-    <button class="proj-nav prev" id="projPrev" aria-label="Previous project">&larr;</button>
-    <button class="proj-nav next" id="projNext" aria-label="Next project">&rarr;</button>
+    <button class="proj-nav prev" id="projPrev" aria-label="Previous project"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8"/></svg></button>
+    <button class="proj-nav next" id="projNext" aria-label="Next project"><svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8"/></svg></button>
   </div>
   <div class="wrap proj-head">
     <a href="#" class="back-link" data-goto="projects">&larr; Back to Projects</a>
@@ -383,8 +388,8 @@
   function goTo(name){
     Object.values(views).forEach(v => v.classList.remove('active'));
     views[name].classList.add('active');
-    nav.classList.toggle('on-dark', name === 'home' || name === 'contact');
-    nav.classList.toggle('on-light', name === 'projects' || name === 'project');
+    nav.classList.toggle('on-dark', name === 'home' || name === 'contact' || name === 'project');
+    nav.classList.toggle('on-light', name === 'projects');
     navLinks.forEach(a => a.classList.toggle('current', a.dataset.goto === name || (name === 'project' && a.dataset.goto === 'projects')));
     window.scrollTo(0,0);
     views[name].scrollTop = 0;
@@ -480,7 +485,6 @@
   // ---- hero slideshow ----
   const slides = document.querySelectorAll('.slide');
   const dotsWrap = document.getElementById('heroDots');
-  const slideNum = document.getElementById('slideNum');
   const slideTitle = document.getElementById('slideTitle');
   const titles = projects.map((p, i) => `0${i+1} — ${p.name}`);
   let current = 0;
@@ -501,7 +505,6 @@
     current = i;
     slides[current].classList.add('active');
     dots[current].classList.add('active');
-    slideNum.textContent = titles[current];
     slideTitle.textContent = projects[current].name;
     resetTimer();
   }
