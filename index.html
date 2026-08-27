@@ -202,15 +202,15 @@
   .proj-desc p{ font-size:1rem; line-height:1.85; color: rgba(20,20,15,0.72); margin-top:1.2rem; }
   .proj-desc p.proj-status{ font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; opacity:0.6; }
   .proj-gallery{ columns: 2; column-gap:2.2rem; padding: 3rem 0 7rem; }
-  .proj-gallery .g{ width:100%; margin-bottom:2.2rem; break-inside:avoid; display:block; background:#fff; padding:10px; box-shadow:0 14px 30px rgba(0,0,0,0.14); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-  .proj-gallery .g:hover{ transform: translateY(-6px); box-shadow:0 20px 38px rgba(0,0,0,0.18); }
+  .proj-gallery .g{ width:100%; margin-bottom:2.2rem; break-inside:avoid; display:block; transition: transform 0.3s ease; }
+  .proj-gallery .g:hover{ transform: translateY(-6px); }
   .proj-gallery .g:nth-child(4n+2){ margin-top:2.6rem; }
   .proj-gallery .g:nth-child(4n+4){ margin-top:1.2rem; }
   .proj-gallery .g img{ width:100%; height:auto; display:block; }
-  .proj-nav{ position:fixed; top:50%; transform:translateY(-50%); width:64px; height:64px; border-radius:50%; background:transparent; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.28; filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35)); transition: opacity 0.3s ease; z-index:90; }
+  .proj-nav{ position:fixed; top:50%; transform:translateY(-50%); width:64px; height:64px; border-radius:50%; background:transparent; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.55; mix-blend-mode:difference; transition: opacity 0.3s ease; z-index:90; }
   .proj-nav svg{ width:20px; height:20px; }
   .proj-nav path{ fill:none; stroke:#fff; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
-  .proj-nav:hover, .proj-nav:focus-visible{ opacity:0.9; }
+  .proj-nav:hover, .proj-nav:focus-visible{ opacity:0.95; }
   .proj-nav.prev{ left:1rem; }
   .proj-nav.next{ right:1rem; }
   .back-link{ display:inline-flex; align-items:center; gap:0.5rem; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.6; border-bottom:1px solid currentColor; padding-bottom:2px; }
@@ -436,7 +436,7 @@
     { name:'אחד העם', meta:'ירושלים',
       client:'', body:'', status:'',
       hero:'img-site/362-jreh/jreh-1.webp',
-      gallery:['img-site/362-jreh/jreh-main.webp','img-site/362-jreh/jreh-2.webp','img-site/362-jreh/jreh-3.webp','img-site/362-jreh/jreh-4.webp','img-site/362-jreh/jreh-5.webp','img-site/362-jreh/jreh-6.webp','img-site/362-jreh/jreh-7.webp','img-site/362-jreh/jreh-8.webp'] },
+      gallery:['img-site/362-jreh/jreh-main.webp','img-site/362-jreh/jreh-2.webp','img-site/362-jreh/jreh-3.webp','img-site/362-jreh/jreh-4.webp','img-site/362-jreh/jreh-5.webp'] },
   ];
 
   let currentProjectIndex = 0;
