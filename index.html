@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reznik Eylon Architects</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Neue+Montreal:wght@400;500&family=Inter:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 
   :root{
     --white: #ffffff;
@@ -20,7 +20,7 @@
   html, body{ height:100%; }
 
   body{
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Questrial', -apple-system, sans-serif;
     color: var(--ink);
     background: var(--white);
     font-weight:300;
@@ -28,8 +28,15 @@
     overflow:hidden;
   }
 
+  /* Hebrew text (anything marked dir="rtl") uses NextExit Light instead of Questrial.
+     Note: NextExit Light is a licensed Fontef/Adobe Fonts typeface, not on Google Fonts —
+     it will fall back to the system font below until it's self-hosted or loaded via an Adobe Fonts kit. */
+  [dir="rtl"], [dir="rtl"] *{
+    font-family: 'NextExit Light', 'Segoe UI', Arial, sans-serif;
+  }
+
   h1,h2,h3{
-    font-family: 'Neue Montreal', 'Inter', sans-serif;
+    font-family: 'Questrial', -apple-system, sans-serif;
     font-weight: 400;
     letter-spacing: -0.01em;
   }
@@ -154,7 +161,7 @@
 
   .hero-caption{ position:absolute; left:3rem; bottom:3rem; z-index:5; color:#fff; }
   .hero-caption .num{ font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; opacity:0.7; }
-  .hero-caption .title{ font-family:'Neue Montreal', sans-serif; font-size: clamp(1.3rem, 2.4vw, 2rem); margin-top:0.4rem; }
+  .hero-caption .title{ font-family:'NextExit Light', 'Segoe UI', Arial, sans-serif; font-size: clamp(1.3rem, 2.4vw, 2rem); margin-top:0.4rem; }
 
   .hero-dots{ position:absolute; right:3rem; bottom:3rem; z-index:5; display:flex; gap:0.6rem; }
   .hero-dots button{ width:22px; height:2px; background: rgba(255,255,255,0.35); border:none; cursor:pointer; padding:0; }
@@ -175,16 +182,16 @@
 
   .cell-label{ position:absolute; left:2rem; bottom:2rem; z-index:2; color:#fff; opacity:0; transform: translateY(10px); transition: opacity 0.45s ease, transform 0.45s ease; }
   .cell:hover .cell-label{ opacity:1; transform:translateY(0); }
-  .cell-label .name{ font-family:'Neue Montreal', sans-serif; font-size: clamp(1.1rem, 1.8vw, 1.5rem); transition: font-size 0.45s ease; transform-origin: left bottom; }
+  .cell-label .name{ font-family:'NextExit Light', 'Segoe UI', Arial, sans-serif; font-size: clamp(1.1rem, 1.8vw, 1.5rem); transition: font-size 0.45s ease; transform-origin: left bottom; }
   .cell:hover .cell-label .name{ font-size: clamp(1.35rem, 2.3vw, 1.9rem); }
   .cell-label .meta{ font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.8; margin-top:0.3rem; }
 
   /* ---------- ABOUT ---------- */
   #view-about{ padding-top: 0; }
   .about-split{ display:grid; grid-template-columns: 42% 58%; }
-  .about-red{ background: #c8341f; color:#fff; position:relative; padding: 8.5rem 3rem 35rem; }
-  .about-portrait{ width:100%; aspect-ratio: 3/4; max-width:420px; background-size:cover; background-position:center; margin-top:1rem; }
-  .about-names{ display:flex; margin-top:0.9rem; max-width:420px; font-size:0.78rem; letter-spacing:0.02em; opacity:0.85; }
+  .about-red{ background: #c8341f; color:#fff; position:relative; padding: 8.5rem 3rem 35rem 2.2rem; }
+  .about-portrait{ width:100%; aspect-ratio: 3/4; max-width:480px; background-size:cover; background-position:center; margin-top:1rem; }
+  .about-names{ display:flex; margin-top:0.9rem; max-width:480px; font-size:0.78rem; letter-spacing:0.02em; opacity:0.85; }
   .about-names span{ flex:1; }
   .about-names span:first-child{ border-right:1px solid rgba(255,255,255,0.3); padding-right:0.8rem; }
   .about-names span:last-child{ padding-left:0.8rem; }
@@ -197,12 +204,12 @@
   .about-copy p + p{ margin-top:1.4rem; }
 
   .stat-row{ display:flex; gap:3.5rem; margin-top:3rem; padding-top:2.2rem; border-top:1px solid var(--line-soft); }
-  .stat .n{ font-family:'Neue Montreal', sans-serif; font-size:2rem; }
+  .stat .n{ font-family:'Questrial', sans-serif; font-size:2rem; }
   .stat .l{ font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.55; margin-top:0.35rem; }
 
   .about-history{ display:grid; grid-template-columns: 42% 58%; }
   .history-block{ padding: 4rem 3.5rem; }
-  .history-block.red{ background:#c8341f; color:#fff; }
+  .history-block.red{ background:#c8341f; color:#fff; padding-left:2.8rem; }
   .history-block h3{ font-size:1.1rem; margin-bottom:1.4rem; }
   .history-block p{ font-size:0.92rem; line-height:1.8; opacity:0.85; max-width:44ch; }
   .history-block p + p{ margin-top:1.2rem; }
