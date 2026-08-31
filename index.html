@@ -172,10 +172,11 @@
   .page-head{ padding: 3rem 0 3.5rem; }
   .page-head h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:1rem; }
 
-  .grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 2.75rem 2rem; padding-bottom: 6rem; }
+  .wrap.grid{ max-width: none; padding: 0 1.75rem; }
+  .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1.25rem; padding-bottom: 6rem; }
 
   .cell{ position:relative; aspect-ratio: 4/3; overflow:hidden; background-size:cover; background-position:center; cursor:pointer; }
-  .cell .fill{ position:absolute; inset:0; transition: transform 0.9s cubic-bezier(.2,.8,.2,1); background-size:cover; background-position: var(--pos, center); }
+  .cell .fill{ position:absolute; inset:-2%; width:104%; height:104%; transition: transform 0.9s cubic-bezier(.2,.8,.2,1); background-size:cover; background-position: var(--pos, center); }
   .cell:hover .fill{ transform: scale(1.06); }
   .cell::after{ content:''; position:absolute; inset:0; background: rgba(10,10,8,0); transition: background 0.5s ease; }
   .cell:hover::after{ background: rgba(10,10,8,0.32); }
@@ -286,6 +287,7 @@
     .nav-links a{ font-size:0.7rem; }
     .wrap{ padding: 0 1.4rem; }
     .stat-row{ gap:2.2rem; flex-wrap:wrap; }
+    .wrap.grid{ max-width:1400px; padding: 0 1.4rem; }
     .grid{ grid-template-columns: 1fr; }
     .cell-label{ opacity:1; transform:none; left:1.4rem; bottom:1.4rem; }
     .cell::after{ background: rgba(10,10,8,0.28); }
