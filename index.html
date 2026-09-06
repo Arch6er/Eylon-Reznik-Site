@@ -194,8 +194,8 @@
   .about-portrait{ width:100%; aspect-ratio: 3/4; max-width:480px; background-size:cover; background-position:center; margin-top:1rem; }
   .about-names{ display:flex; margin-top:0.9rem; max-width:480px; font-size:0.78rem; letter-spacing:0.02em; opacity:0.85; }
   .about-names span{ flex:1; }
-  .about-names span:first-child{ border-right:1px solid rgba(255,255,255,0.3); padding-right:0.8rem; }
-  .about-names span:last-child{ padding-left:0.8rem; }
+  .about-names span:first-child{ border-inline-end:1px solid rgba(255,255,255,0.3); padding-inline-end:0.8rem; }
+  .about-names span:last-child{ padding-inline-start:0.8rem; }
 
   .about-white{ padding: 8.5rem 3.5rem 35rem; }
   .about-white h1{ font-size: clamp(1.7rem, 2.6vw, 2.4rem); line-height:1.2; }
@@ -221,6 +221,24 @@
     .about-red{ padding-top:7rem; }
     .about-white{ padding-top:1.4rem; }
     .nav:not(.on-dark):not(.on-light) *{ color:#fff; }
+  }
+
+  /* ---------- REZNIK (RETROSPECTIVE) ---------- */
+  #view-reznik{ padding-top: 6.5rem; }
+  .reznik-intro{ max-width: 70ch; }
+  .reznik-intro h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:1rem; }
+  .reznik-intro p{ font-size:0.98rem; line-height:1.85; color: rgba(20,20,15,0.72); margin-top:1.6rem; }
+  .reznik-gallery{ columns:3; column-gap:1.2rem; padding: 3rem 0 1rem; }
+  .reznik-gallery img{ width:100%; display:block; margin-bottom:1.2rem; break-inside:avoid; background:#eee; }
+  .reznik-works{ padding: 3rem 0 6rem; border-top:1px solid var(--line-soft); margin-top:2rem; }
+  .reznik-works h3{ font-size:1.05rem; margin-bottom:0.4rem; }
+  .reznik-works .eyebrow{ margin-bottom:0.6rem; }
+  .reznik-works ul{ list-style:none; margin-top:1.4rem; }
+  .reznik-works li{ padding:1rem 0; border-bottom:1px solid var(--line-soft); font-size:0.95rem; }
+  .reznik-works a{ border-bottom:1px solid currentColor; padding-bottom:1px; }
+  .reznik-note{ font-size:0.8rem; opacity:0.55; margin-top:1rem; }
+  @media (max-width:900px){
+    .reznik-gallery{ columns:2; }
   }
 
   /* ---------- PROJECT DETAIL ---------- */
@@ -316,6 +334,7 @@
   <div class="nav-links" id="navLinks">
     <a href="#" data-goto="projects" class="current">Projects</a>
     <a href="#" data-goto="about">About Us</a>
+    <a href="#" data-goto="reznik">Reznik</a>
     <a href="#" data-goto="contact">Contact</a>
   </div>
 </nav>
@@ -384,33 +403,67 @@
   <div class="about-split">
     <div class="about-red">
       <div class="about-portrait" style="background-image:url('img-site/about-us.webp'); background-position:center 15%;"></div>
-      <div class="about-names"><span>Baruch Reznik — Architect</span><span>Anat Eylon — Architect</span></div>
+      <div class="about-names" dir="rtl"><span>ברוך רזניק — אדריכל</span><span>ענת אילון — אדריכלית</span></div>
     </div>
-    <div class="about-white">
-      <div class="eyebrow">About the Firm</div>
-      <h1>Reznik Eylon Architects<br>Jerusalem — Tel Aviv</h1>
+    <div class="about-white" dir="rtl">
+      <div class="eyebrow">אודות המשרד</div>
+      <h1>רזניק אילון אדריכלים<br>ירושלים — תל אביב</h1>
       <div class="about-copy">
-        <p>Reznik Eylon Architects unites two long-established practices: David Reznik–Baruch Reznik Architects, founded in Jerusalem in 1958 by architect David Reznik — an Israel Prize laureate for architecture — and now led by his son, architect Baruch Reznik; and Anat Eylon Architects | archiTECHteam, founded in Tel Aviv in 2005 by architect Anat Eylon. Together, the joint office brings decades of experience and a shared language of restraint and precision to projects across Jerusalem, Tel Aviv, and beyond.</p>
-        <p>The practice specializes in high-rise towers and complex, mixed-use buildings alongside public and academic institutions, with deep expertise guiding projects through the statutory planning process. The firm currently leads a number of major urban-renewal projects and collaborates with architect Ian Bader of Pei Cobb Freed &amp; Partners, New York.</p>
+        <p>משרד רזניק אילון אדריכלים מאחד שני משרדים ותיקים: משרד דוד רזניק–ברוך רזניק אדריכלים, שנוסד בירושלים בשנת 1958 על ידי האדריכל דוד רזניק — חתן פרס ישראל לאדריכלות — ומנוהל כיום על ידי בנו, האדריכל ברוך רזניק; ומשרד ענת אילון אדריכלים | archiTECHteam, שנוסד בתל אביב בשנת 2005 על ידי האדריכלית ענת אילון. יחד, המשרד המשותף מביא עשורים של ניסיון ושפה משותפת של איפוק ודיוק, לפרויקטים בירושלים, בתל אביב ומעבר להן.</p>
+        <p>המשרד מתמחה במגדלים רבי קומות ובמבנים מורכבים בעירוב שימושים, לצד מוסדות ציבור ואקדמיה, עם ניסיון מעמיק בליווי פרויקטים לאורך ההליך התכנוני-סטטוטורי. המשרד מוביל כיום מספר פרויקטי התחדשות עירונית משמעותיים, ופועל בשיתוף עם האדריכל איאן בדר ממשרד Pei Cobb Freed &amp; Partners, ניו יורק.</p>
         <div class="stat-row">
-          <div class="stat"><div class="n">1958</div><div class="l">Firm Founded</div></div>
-          <div class="stat"><div class="n">2005</div><div class="l">archiTECHteam Founded</div></div>
-          <div class="stat"><div class="n">2</div><div class="l">Studios — Jerusalem &amp; Tel Aviv</div></div>
+          <div class="stat"><div class="n">1958</div><div class="l">הקמת המשרד</div></div>
+          <div class="stat"><div class="n">2005</div><div class="l">הקמת archiTECHteam</div></div>
+          <div class="stat"><div class="n">2</div><div class="l">סטודיואים — ירושלים ותל אביב</div></div>
         </div>
       </div>
     </div>
   </div>
   <div class="about-history">
-    <div class="history-block red">
-      <h3>Anat Eylon Architects | archiTECHteam</h3>
-      <p>Founded in 2005 by architect Anat Eylon, archiTECHteam brings a distinct philosophy of imagination and minimalism to planning — advanced, sharp, simple, and precise design that responds honestly to place.</p>
-      <p>The office brings deep experience in multi-disciplinary parametric planning for complex projects, and adds unique value through project development, optimal planning solutions, and up-to-date technologies in advanced design and construction methods.</p>
+    <div class="history-block red" dir="rtl">
+      <h3>ענת אילון אדריכלים | archiTECHteam</h3>
+      <p>נוסד בשנת 2005 על ידי האדריכלית ענת אילון, archiTECHteam מביא פילוסופיה ייחודית של דמיון ומינימליזם לתכנון — עיצוב מתקדם, חד, פשוט ומדויק, המגיב באמת למקום.</p>
+      <p>המשרד צובר ניסיון עמוק בתכנון פרמטרי רב-תחומי לפרויקטים מורכבים, ומוסיף ערך ייחודי באמצעות פיתוח פרויקטים, פתרונות תכנון מיטביים וטכנולוגיות עדכניות בשיטות עיצוב ובנייה מתקדמות.</p>
     </div>
-    <div class="history-block">
-      <h3>David Reznik–Baruch Reznik Architects</h3>
-      <p>Founded in Jerusalem in 1958 by architect David Reznik — recipient of the Israel Prize and one of the great Israeli architects of his generation — and active in Jerusalem to this day, now led by architect Baruch Reznik for over 35 years.</p>
-      <p>The firm's project portfolio spans urban planning, public buildings, residential complexes, commercial projects, and interior design for a wide range of clients.</p>
+    <div class="history-block" dir="rtl">
+      <h3>דוד רזניק–ברוך רזניק אדריכלים</h3>
+      <p>נוסד בירושלים בשנת 1958 על ידי האדריכל דוד רזניק — חתן פרס ישראל ואחד מגדולי האדריכלים הישראלים בדורו — ופעיל בירושלים עד היום, ומנוהל כיום על ידי האדריכל ברוך רזניק זה למעלה מ-35 שנה.</p>
+      <p>תיק הפרויקטים של המשרד משתרע על פני תכנון עירוני, מבני ציבור, מתחמי מגורים, פרויקטים מסחריים ועיצוב פנים עבור מגוון רחב של לקוחות.</p>
     </div>
+  </div>
+</div>
+
+<!-- REZNIK (RETROSPECTIVE) -->
+<div class="view" id="view-reznik">
+  <div class="wrap reznik-intro" dir="rtl">
+    <div class="eyebrow">רטרוספקטיבה</div>
+    <h1>דוד רזניק ברוך רזניק</h1>
+    <p>דוד רזניק, חתן פרס ישראל לאדריכלות, ייסד את המשרד בירושלים בשנת 1958 ופעל בה במשך עשורים כאחד מגדולי האדריכלים הישראלים בדורו. מבחר מתמונותיו ומפרויקטיו לאורך השנים, וקישורים לחלק מהפרסומים והתיקים המלאים של עבודותיו.</p>
+  </div>
+  <div class="wrap reznik-gallery">
+    <img src="https://images7.webydo.com/91/9103191/472550/4FDE71A9-1BB4-1C58-86E1-C76BFA6746E2.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+    <img src="https://images7.webydo.com/91/9103191/472550/FEF767D2-DF45-E34B-B6AE-43A0B0041C41.jpg_512" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+    <img src="https://images7.webydo.com/91/9103191/472550/DC3D731D-425A-7819-1FDF-98898FCCD614.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+    <img src="https://images7.webydo.com/91/9103191/472550/066F56CE-C596-0067-C409-61303548E098.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+    <img src="https://images7.webydo.com/91/9103191/472550/1785A540-97AE-B912-ECF3-6D44EB677CE8.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+    <img src="https://images7.webydo.com/91/9103191/472550/FDA52D40-8252-A511-45E7-8FB0573C5BD3.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+    <img src="https://images7.webydo.com/91/9103191/472550/D388B02D-2283-E85A-F540-7EF97D13C54A.jpg_512" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+    <img src="https://images7.webydo.com/91/9103191/472550/221F948F-473D-8FB3-7D5A-33BEA76CA626.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+    <img src="https://images7.webydo.com/91/9103191/472550/C79E896E-592F-BC14-06D9-AF6662DAF715.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
+  </div>
+  <div class="wrap reznik-works" dir="rtl">
+    <div class="eyebrow">עבודות נבחרות</div>
+    <h3>פרסומים ותיקי פרויקטים</h3>
+    <ul>
+      <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/ABF48DB2-EA52-F5B6-0D94-1A17856807C5.pdf" target="_blank" rel="noopener">בית החייל ויד לבנים</a></li>
+      <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/64C14C77-16A3-512F-EC59-ED19B897C283.pdf" target="_blank" rel="noopener">חדר זכרון בקרית ענבים ומכון ון ליר</a></li>
+      <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/8A2B5DD9-FBEB-C608-1284-0CCEE1F051B9.pdf" target="_blank" rel="noopener">שיכון אנגלוסקסים בירושלים ופביליון ישראל בניו יורק</a></li>
+      <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/946B8FCD-A55C-8EE4-E45B-54580D5A1EB8.pdf" target="_blank" rel="noopener">בית הכנסת בגבעת רם ובנין אמיר (שופרסל)</a></li>
+      <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/4CB1F4EC-A06C-EF1D-0E35-550CB77321F9.pdf" target="_blank" rel="noopener">מוזיאון חצור לארכיאולוגיה ויד קנדי</a></li>
+      <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/ED0F15AC-70C4-CC2C-16C3-423AE938C6AC.pdf" target="_blank" rel="noopener">שגרירות ישראל בברזיליה, תלמוד תורה וישיבה דחסידי גור (ירושלים), מלון היאט ריג'נסי, המרכז ללימודי המזרח הקרוב</a></li>
+      <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/74A5F8B9-9BA0-7C10-3B32-CC5818EA79FD.pdf" target="_blank" rel="noopener">דוד רזניק — קורות חיים</a></li>
+    </ul>
+    <p class="reznik-note">התמונות והקישורים לעיל נטענים כרגע ישירות מאתר המשרד הקודם (reznik-arch.co.il). מומלץ בהמשך להוריד עותקים ולארח אותם תחת img-site/ כדי שהעמוד לא יהיה תלוי באתר החיצוני.</p>
   </div>
 </div>
 
@@ -452,6 +505,7 @@
     projects: document.getElementById('view-projects'),
     project: document.getElementById('view-project'),
     about: document.getElementById('view-about'),
+    reznik: document.getElementById('view-reznik'),
     contact: document.getElementById('view-contact'),
   };
   const nav = document.getElementById('mainNav');
@@ -479,7 +533,7 @@
     Object.values(views).forEach(v => v.classList.remove('active'));
     views[name].classList.add('active');
     nav.classList.toggle('on-dark', name === 'home' || name === 'contact' || name === 'project');
-    nav.classList.toggle('on-light', name === 'projects');
+    nav.classList.toggle('on-light', name === 'projects' || name === 'reznik');
     navLinks.forEach(a => a.classList.toggle('current', a.dataset.goto === name || (name === 'project' && a.dataset.goto === 'projects')));
     window.scrollTo(0,0);
     views[name].scrollTop = 0;
