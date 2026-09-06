@@ -201,7 +201,7 @@
   .about-white h1{ font-size: clamp(1.7rem, 2.6vw, 2.4rem); line-height:1.2; }
   .about-white .eyebrow{ margin-bottom:0.6rem; }
   .about-copy{ margin-top:3rem; }
-  .about-copy p{ font-size:0.98rem; line-height:1.85; color: rgba(20,20,15,0.72); max-width:52ch; }
+  .about-copy p{ font-size:1.18rem; line-height:1.9; color: rgba(20,20,15,0.72); max-width:none; }
   .about-copy p + p{ margin-top:1.4rem; }
 
   .stat-row{ display:flex; gap:3.5rem; margin-top:3rem; padding-top:2.2rem; border-top:1px solid var(--line-soft); }
@@ -212,7 +212,7 @@
   .history-block{ padding: 4rem 3.5rem; }
   .history-block.red{ background:#c8341f; color:#fff; padding-left:2.8rem; }
   .history-block h3{ font-size:1.1rem; margin-bottom:1.4rem; }
-  .history-block p{ font-size:0.92rem; line-height:1.8; opacity:0.85; max-width:44ch; }
+  .history-block p{ font-size:1.08rem; line-height:1.85; opacity:0.85; max-width:none; }
   .history-block p + p{ margin-top:1.2rem; }
 
   @media (max-width: 900px){
@@ -225,16 +225,16 @@
 
   /* ---------- REZNIK (RETROSPECTIVE) ---------- */
   #view-reznik{ padding-top: 6.5rem; }
-  .reznik-intro{ max-width: 70ch; }
+  .reznik-intro{ max-width: none; }
   .reznik-intro h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:1rem; }
-  .reznik-intro p{ font-size:0.98rem; line-height:1.85; color: rgba(20,20,15,0.72); margin-top:1.6rem; }
+  .reznik-intro p{ font-size:1.18rem; line-height:1.9; color: rgba(20,20,15,0.72); margin-top:1.6rem; max-width:90ch; }
   .reznik-gallery{ columns:3; column-gap:1.2rem; padding: 3rem 0 1rem; }
   .reznik-gallery img{ width:100%; display:block; margin-bottom:1.2rem; break-inside:avoid; background:#eee; }
   .reznik-works{ padding: 3rem 0 6rem; border-top:1px solid var(--line-soft); margin-top:2rem; }
   .reznik-works h3{ font-size:1.05rem; margin-bottom:0.4rem; }
   .reznik-works .eyebrow{ margin-bottom:0.6rem; }
   .reznik-works ul{ list-style:none; margin-top:1.4rem; }
-  .reznik-works li{ padding:1rem 0; border-bottom:1px solid var(--line-soft); font-size:0.95rem; }
+  .reznik-works li{ padding:1rem 0; border-bottom:1px solid var(--line-soft); font-size:1.1rem; }
   .reznik-works a{ border-bottom:1px solid currentColor; padding-bottom:1px; }
   .reznik-note{ font-size:0.8rem; opacity:0.55; margin-top:1rem; }
   @media (max-width:900px){
@@ -247,11 +247,11 @@
   /* image sits on an oversized layer so any edge rounding/artifact from the source photo never shows */
   .proj-hero-img{ position:absolute; inset:-2%; width:104%; height:104%; background-size:cover; background-position: var(--pos, center); }
   .proj-head{ padding: 2.6rem 0 3rem; }
-  #projTextWrap{ max-width:60ch; margin-left:auto; margin-right:0; text-align:right; }
-  .proj-head .meta{ font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.5; margin-top:0.6rem; }
+  #projTextWrap{ max-width:none; width:100%; margin-left:auto; margin-right:0; text-align:right; }
+  .proj-head .meta{ font-size:0.95rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.5; margin-top:0.6rem; }
   .proj-head h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:0.8rem; }
-  .proj-desc p{ font-size:1rem; line-height:1.85; color: rgba(20,20,15,0.72); margin-top:1.2rem; }
-  .proj-desc p.proj-status{ font-size:0.82rem; letter-spacing:0.04em; text-transform:uppercase; opacity:0.6; }
+  .proj-desc p{ font-size:1.28rem; line-height:1.9; color: rgba(20,20,15,0.72); margin-top:1.2rem; max-width:75ch; }
+  .proj-desc p.proj-status{ font-size:1rem; letter-spacing:0.04em; text-transform:uppercase; opacity:0.6; }
   /* each gallery photo keeps its own true proportions — no forced crop, portrait stays tall, landscape stays wide */
   .proj-gallery{ columns: 2; column-gap: 1.4rem; padding: 3rem 0 7rem; }
   .proj-gallery .g{ break-inside: avoid; margin-bottom: 1.4rem; overflow:hidden; cursor:zoom-in; }
