@@ -7,6 +7,14 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 
+  @font-face{
+    font-family: 'NextExit Light';
+    src: url('img-site/NextExitLight.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root{
     --white: #ffffff;
     --off-white: #fafaf9;
@@ -29,8 +37,7 @@
   }
 
   /* Hebrew text (anything marked dir="rtl") uses NextExit Light instead of Questrial.
-     Note: NextExit Light is a licensed Fontef/Adobe Fonts typeface, not on Google Fonts —
-     it will fall back to the system font below until it's self-hosted or loaded via an Adobe Fonts kit. */
+     Self-hosted from img-site/NextExitLight.otf via the @font-face above. */
   [dir="rtl"], [dir="rtl"] *{
     font-family: 'NextExit Light', 'Segoe UI', Arial, sans-serif;
   }
@@ -43,6 +50,15 @@
 
   a{ color:inherit; text-decoration:none; cursor:pointer; -webkit-tap-highlight-color: transparent; }
   button{ -webkit-tap-highlight-color: transparent; }
+
+  .skip-link{
+    position:fixed; top:-100px; left:1rem; z-index:1000;
+    background:#fff; color:var(--ink); padding:0.8rem 1.4rem;
+    font-size:0.9rem; letter-spacing:0.04em;
+    transition: top 0.2s ease;
+    border-radius: 2px;
+  }
+  .skip-link:focus{ top:1rem; outline:2px solid var(--ink); outline-offset:2px; }
 
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -60,6 +76,7 @@
   }
   .view.active{ opacity:1; visibility:visible; }
   .view.dark{ background: var(--ink); color: var(--off-white); }
+  .view:focus{ outline:none; }
 
   /* ---------- NAV ---------- */
   .nav{
@@ -126,7 +143,7 @@
 
   .wrap{ max-width: 1400px; margin:0 auto; padding: 0 3rem; }
 
-  .eyebrow{ font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.55;
+  .eyebrow{ font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.68;
     display:flex; align-items:center; gap:0.8rem;
   }
   .eyebrow::before{
@@ -136,7 +153,7 @@
   /* ---------- HOME / HERO ---------- */
   .hero{ position:relative; width:100%; height:100%; overflow:hidden; background:#1c1b17; }
 
-  .slide{ position:absolute; inset:0; opacity:0; transition: opacity 1.6s ease; }
+  .slide{ position:absolute; inset:0; opacity:0; transition: opacity 1.3s ease; }
   .slide.active{ opacity:1; }
 
   .slide-img{
@@ -169,7 +186,7 @@
   /* ---------- PROJECTS ---------- */
   #view-projects{ padding-top: 6.5rem; }
   .page-head{ padding: 3rem 0 3.5rem; }
-  .page-head h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:1rem; }
+  .page-head h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:1rem; text-align:right; }
 
   .wrap.grid{ max-width: none; padding: 0 1.75rem; }
   .grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1.25rem; padding-bottom: 6rem; }
@@ -180,7 +197,7 @@
   .cell::after{ content:''; position:absolute; inset:0; background: rgba(10,10,8,0); transition: background 0.5s ease; }
   .cell:hover::after{ background: rgba(10,10,8,0.32); }
 
-  .cell-label{ position:absolute; left:2rem; bottom:2rem; z-index:2; color:#fff; opacity:0; transform: translateY(10px); transition: opacity 0.45s ease, transform 0.45s ease; }
+  .cell-label{ position:absolute; right:2rem; bottom:2rem; text-align:right; z-index:2; color:#fff; opacity:0; transform: translateY(10px); transition: opacity 0.45s ease, transform 0.45s ease; }
   .cell:hover .cell-label{ opacity:1; transform:translateY(0); }
   .cell-label .name{ font-family:'NextExit Light', 'Segoe UI', Arial, sans-serif; font-size: clamp(1.1rem, 1.8vw, 1.5rem); transition: font-size 0.45s ease; transform-origin: left bottom; }
   .cell:hover .cell-label .name{ font-size: clamp(1.35rem, 2.3vw, 1.9rem); }
@@ -205,7 +222,7 @@
 
   .stat-row{ display:flex; gap:3.5rem; margin-top:3rem; padding-top:2.2rem; border-top:1px solid var(--line-soft); }
   .stat .n{ font-family:'Questrial', sans-serif; font-size:2rem; }
-  .stat .l{ font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.55; margin-top:0.35rem; }
+  .stat .l{ font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.68; margin-top:0.35rem; }
 
   .about-history{ display:grid; grid-template-columns: 42% 58%; }
   .history-block{ padding: 4rem 3.5rem; }
@@ -235,7 +252,6 @@
   .reznik-works ul{ list-style:none; margin-top:1.4rem; }
   .reznik-works li{ padding:1rem 0; border-bottom:1px solid var(--line-soft); font-size:1.1rem; }
   .reznik-works a{ border-bottom:1px solid currentColor; padding-bottom:1px; }
-  .reznik-note{ font-size:0.8rem; opacity:0.55; margin-top:1rem; }
   @media (max-width:900px){
     .reznik-gallery{ columns:2; }
   }
@@ -257,6 +273,24 @@
   .proj-gallery .g img{ width:100%; height:auto; display:block; transition: transform 0.6s ease; }
   .proj-gallery .g:hover img{ transform: scale(1.05); }
   @media (max-width:900px){ .proj-gallery{ columns:1; } }
+  /* מגדל שעון השמש: 2 תמונות לרוחב מוערמות בצד שמאל, תמונה גבוהה אחת בצד ימין */
+  .proj-gallery.gallery-jrsh{
+    columns: initial;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.4rem;
+  }
+  .proj-gallery.gallery-jrsh .g{ margin-bottom:0; height:100%; }
+  .proj-gallery.gallery-jrsh .g img{ width:100%; height:100%; object-fit:cover; }
+  .proj-gallery.gallery-jrsh .g:nth-child(1){ grid-column:1; grid-row:1; }
+  .proj-gallery.gallery-jrsh .g:nth-child(2){ grid-column:1; grid-row:2; }
+  .proj-gallery.gallery-jrsh .g:nth-child(3){ grid-column:2; grid-row: 1 / span 2; }
+  @media (max-width:900px){
+    .proj-gallery.gallery-jrsh{ grid-template-columns:1fr; grid-template-rows:auto; }
+    .proj-gallery.gallery-jrsh .g:nth-child(3){ grid-row:auto; }
+    .proj-gallery.gallery-jrsh .g img{ height:auto; }
+  }
   /* full page-height click strip along each side, not just the small circle icon */
   .proj-nav{ position:fixed; top:0; bottom:0; width: clamp(64px, 9vw, 140px); background:transparent; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.55; mix-blend-mode:difference; transition: opacity 0.3s ease; z-index:90; }
   .proj-nav svg{ width:20px; height:20px; }
@@ -286,11 +320,11 @@
   .contact{ flex:1; display:flex; flex-direction:column; justify-content:center; padding: 8rem 0 3rem; }
   .contact h1{ font-size: clamp(2rem, 5vw, 4.4rem); line-height:1.05; max-width:16ch; }
   .contact-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap:4vw; margin-top:4.5rem; }
-  .contact-block .eyebrow{ color: rgba(250,250,249,0.5); }
+  .contact-block .eyebrow{ opacity:1; color: rgba(250,250,249,0.75); }
   .contact-block a, .contact-block p{ font-size:1.05rem; line-height:2.1; color: rgba(250,250,249,0.85); overflow-wrap:anywhere; word-break:break-word; }
   .contact-block a{ border-bottom: 1px solid rgba(250,250,249,0.25); }
   body{ overflow-x:hidden; }
-  .foot{ display:flex; justify-content:space-between; align-items:center; padding: 1.8rem 3rem; border-top:1px solid rgba(250,250,249,0.12); font-size:0.68rem; letter-spacing:0.08em; opacity:0.45; }
+  .foot{ display:flex; justify-content:space-between; align-items:center; padding: 1.8rem 3rem; border-top:1px solid rgba(250,250,249,0.12); font-size:0.68rem; letter-spacing:0.08em; opacity:0.6; }
 
   @media (max-width: 900px){
     .nav{ padding: 1.6rem 1.4rem; }
@@ -306,7 +340,7 @@
     .stat-row{ gap:2.2rem; flex-wrap:wrap; }
     .wrap.grid{ max-width:1400px; padding: 0 1.4rem; }
     .grid{ grid-template-columns: 1fr; }
-    .cell-label{ opacity:1; transform:none; left:1.4rem; bottom:1.4rem; }
+    .cell-label{ opacity:1; transform:none; right:1.4rem; bottom:1.4rem; }
     .cell::after{ background: rgba(10,10,8,0.28); }
     #view-projects{ padding-top: 5.5rem; }
     .page-head, .about{ padding-top: 1.6rem; }
@@ -323,7 +357,9 @@
 </head>
 <body>
 
-<nav class="nav on-dark" id="mainNav">
+<a class="skip-link" href="#view-home">Skip to content</a>
+
+<nav class="nav on-dark" id="mainNav" aria-label="Main">
   <a class="logo" href="#" data-goto="home">
     <img src="img-site/logo.png" alt="Reznik Eylon Architects">
   </a>
@@ -340,7 +376,7 @@
 <div class="nav-scrim" id="navScrim"></div>
 
 <!-- HOME -->
-<div class="view active" id="view-home">
+<div class="view active" id="view-home" tabindex="-1" aria-hidden="false">
   <div class="hero">
     <div class="slide active"><div class="slide-img" style="background-image:url('img-site/355-jrgl/jrgl-main.webp');"></div></div>
     <div class="slide"><div class="slide-img" style="background-image:url('img-site/330-jrn2/jrn2-main.webp');"></div></div>
@@ -351,36 +387,36 @@
     <button class="hero-nav prev" id="heroPrev" aria-label="Previous slide"></button>
     <button class="hero-nav next" id="heroNext" aria-label="Next slide"></button>
     <div class="hero-caption">
-      <div class="title" id="slideTitle" dir="rtl">המרגלית, גילה</div>
+      <div class="title" id="slideTitle" lang="he" dir="rtl">המרגלית, גילה</div>
     </div>
     <div class="hero-dots" id="heroDots"></div>
   </div>
 </div>
 
 <!-- PROJECTS -->
-<div class="view" id="view-projects">
+<div class="view" id="view-projects" tabindex="-1" aria-hidden="true">
   <div class="wrap page-head">
     <div class="eyebrow">Selected Work</div>
-    <h1>Projects</h1>
+    <h1 lang="he" dir="rtl">פרויקטים</h1>
   </div>
   <div class="wrap grid">
     <a class="cell" href="#" data-project="0"><div class="fill" style="background-image:url('img-site/355-jrgl/jrgl-1.webp');"></div>
-      <div class="cell-label" dir="rtl"><div class="name">המרגלית, גילה</div><div class="meta">עירוב שימושים — ירושלים</div></div></a>
+      <div class="cell-label" lang="he" dir="rtl"><div class="name">המרגלית, גילה</div><div class="meta">עירוב שימושים — ירושלים</div></div></a>
     <a class="cell" href="#" data-project="1"><div class="fill" style="background-image:url('img-site/330-jrn2/jrn2-1.webp'); --pos:center 75%;"></div>
-      <div class="cell-label" dir="rtl"><div class="name">הנורית</div><div class="meta">פינוי בינוי — ירושלים</div></div></a>
+      <div class="cell-label" lang="he" dir="rtl"><div class="name">הנורית</div><div class="meta">פינוי בינוי — ירושלים</div></div></a>
     <a class="cell" href="#" data-project="2"><div class="fill" style="background-image:url('img-site/347-jrsh/jrsh-1.webp');"></div>
-      <div class="cell-label" dir="rtl"><div class="name">מגדל שעון השמש</div><div class="meta">מגדל — ירושלים</div></div></a>
+      <div class="cell-label" lang="he" dir="rtl"><div class="name">מגדל שעון השמש</div><div class="meta">מגדל — ירושלים</div></div></a>
     <a class="cell" href="#" data-project="3"><div class="fill" style="background-image:url('img-site/352-jrsm/jrsm-1.webp'); --pos:center 75%;"></div>
-      <div class="cell-label" dir="rtl"><div class="name">סן מרטין</div><div class="meta">פינוי בינוי — ירושלים</div></div></a>
+      <div class="cell-label" lang="he" dir="rtl"><div class="name">סן מרטין</div><div class="meta">פינוי בינוי — ירושלים</div></div></a>
     <a class="cell" href="#" data-project="4"><div class="fill" style="background-image:url('img-site/357-shly/shly-1.webp');"></div>
-      <div class="cell-label" dir="rtl"><div class="name">שלום יהודה</div><div class="meta">ירושלים</div></div></a>
+      <div class="cell-label" lang="he" dir="rtl"><div class="name">שלום יהודה</div><div class="meta">ירושלים</div></div></a>
     <a class="cell" href="#" data-project="5"><div class="fill" style="background-image:url('img-site/362-jreh/jreh-1.webp');"></div>
-      <div class="cell-label" dir="rtl"><div class="name">אחד העם</div><div class="meta">ירושלים</div></div></a>
+      <div class="cell-label" lang="he" dir="rtl"><div class="name">אחד העם</div><div class="meta">ירושלים</div></div></a>
   </div>
 </div>
 
 <!-- PROJECT DETAIL -->
-<div class="view" id="view-project">
+<div class="view" id="view-project" tabindex="-1" aria-hidden="true">
   <div class="proj-hero" id="projHero">
     <div class="proj-hero-img" id="projHeroImg"></div>
     <button class="proj-nav prev" id="projPrev" aria-label="Previous project"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8"/></svg></button>
@@ -388,7 +424,7 @@
   </div>
   <div class="wrap proj-head">
     <a href="#" class="back-link" data-goto="projects">&larr; Back to Projects</a>
-    <div id="projTextWrap" dir="rtl">
+    <div id="projTextWrap" lang="he" dir="rtl">
       <div class="meta" id="projMeta">Category — Location</div>
       <h1 id="projTitle">Project Name</h1>
       <div class="proj-desc" id="projDesc"></div>
@@ -398,13 +434,13 @@
 </div>
 
 <!-- ABOUT -->
-<div class="view" id="view-about">
+<div class="view" id="view-about" tabindex="-1" aria-hidden="true">
   <div class="about-split">
     <div class="about-red">
       <div class="about-portrait" style="background-image:url('img-site/about-us.webp'); background-position:center 15%;"></div>
-      <div class="about-names" dir="rtl"><span>ברוך רזניק — אדריכל</span><span>ענת אילון — אדריכלית</span></div>
+      <div class="about-names" lang="he" dir="rtl"><span>ברוך רזניק — אדריכל</span><span>ענת אילון — אדריכלית</span></div>
     </div>
-    <div class="about-white" dir="rtl">
+    <div class="about-white" lang="he" dir="rtl">
       <div class="eyebrow">אודות המשרד</div>
       <h1>רזניק אילון אדריכלים<br>ירושלים — תל אביב</h1>
       <div class="about-copy">
@@ -419,12 +455,12 @@
     </div>
   </div>
   <div class="about-history">
-    <div class="history-block red" dir="rtl">
+    <div class="history-block red" lang="he" dir="rtl">
       <h3>ענת אילון אדריכלים | archiTECHteam</h3>
       <p>נוסד בשנת 2005 על ידי האדריכלית ענת אילון, archiTECHteam מביא פילוסופיה ייחודית של דמיון ומינימליזם לתכנון — עיצוב מתקדם, חד, פשוט ומדויק, המגיב באמת למקום.</p>
       <p>המשרד צובר ניסיון עמוק בתכנון פרמטרי רב-תחומי לפרויקטים מורכבים, ומוסיף ערך ייחודי באמצעות פיתוח פרויקטים, פתרונות תכנון מיטביים וטכנולוגיות עדכניות בשיטות עיצוב ובנייה מתקדמות.</p>
     </div>
-    <div class="history-block" dir="rtl">
+    <div class="history-block" lang="he" dir="rtl">
       <h3>דוד רזניק–ברוך רזניק אדריכלים</h3>
       <p>נוסד בירושלים בשנת 1958 על ידי האדריכל דוד רזניק — חתן פרס ישראל ואחד מגדולי האדריכלים הישראלים בדורו — ופעיל בירושלים עד היום, ומנוהל כיום על ידי האדריכל ברוך רזניק זה למעלה מ-35 שנה.</p>
       <p>תיק הפרויקטים של המשרד משתרע על פני תכנון עירוני, מבני ציבור, מתחמי מגורים, פרויקטים מסחריים ועיצוב פנים עבור מגוון רחב של לקוחות.</p>
@@ -433,8 +469,8 @@
 </div>
 
 <!-- REZNIK (RETROSPECTIVE) -->
-<div class="view" id="view-reznik">
-  <div class="wrap reznik-intro" dir="rtl">
+<div class="view" id="view-reznik" tabindex="-1" aria-hidden="true">
+  <div class="wrap reznik-intro" lang="he" dir="rtl">
     <div class="eyebrow">רטרוספקטיבה</div>
     <h1>דוד רזניק ברוך רזניק</h1>
     <p>דוד רזניק, חתן פרס ישראל לאדריכלות, ייסד את המשרד בירושלים בשנת 1958 ופעל בה במשך עשורים כאחד מגדולי האדריכלים הישראלים בדורו. מבחר מתמונותיו ומפרויקטיו לאורך השנים, וקישורים לחלק מהפרסומים והתיקים המלאים של עבודותיו.</p>
@@ -450,7 +486,7 @@
     <img src="https://images7.webydo.com/91/9103191/472550/221F948F-473D-8FB3-7D5A-33BEA76CA626.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
     <img src="https://images7.webydo.com/91/9103191/472550/C79E896E-592F-BC14-06D9-AF6662DAF715.jpg_400" alt="דוד רזניק — רטרוספקטיבה" loading="lazy">
   </div>
-  <div class="wrap reznik-works" dir="rtl">
+  <div class="wrap reznik-works" lang="he" dir="rtl">
     <div class="eyebrow">עבודות נבחרות</div>
     <h3>פרסומים ותיקי פרויקטים</h3>
     <ul>
@@ -462,12 +498,11 @@
       <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/ED0F15AC-70C4-CC2C-16C3-423AE938C6AC.pdf" target="_blank" rel="noopener">שגרירות ישראל בברזיליה, תלמוד תורה וישיבה דחסידי גור (ירושלים), מלון היאט ריג'נסי, המרכז ללימודי המזרח הקרוב</a></li>
       <li><a href="https://files7.webydo.com/91/9103191/UploadedFiles/74A5F8B9-9BA0-7C10-3B32-CC5818EA79FD.pdf" target="_blank" rel="noopener">דוד רזניק — קורות חיים</a></li>
     </ul>
-    <p class="reznik-note">התמונות והקישורים לעיל נטענים כרגע ישירות מאתר המשרד הקודם (reznik-arch.co.il). מומלץ בהמשך להוריד עותקים ולארח אותם תחת img-site/ כדי שהעמוד לא יהיה תלוי באתר החיצוני.</p>
   </div>
 </div>
 
 <!-- CONTACT -->
-<div class="view dark" id="view-contact">
+<div class="view dark" id="view-contact" tabindex="-1" aria-hidden="true">
   <section class="wrap contact">
     <div class="eyebrow">Get in Touch</div>
     <h1>Let's design something built to last.</h1>
@@ -490,7 +525,7 @@
 </div>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
   <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
   <button class="lb-nav prev" id="lbPrev" aria-label="Previous photo"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8"/></svg></button>
   <img class="lb-img" id="lbImg" alt="">
@@ -529,13 +564,22 @@
   navLinks.forEach(a => a.addEventListener('click', closeMobileNav));
 
   function goTo(name){
-    Object.values(views).forEach(v => v.classList.remove('active'));
-    views[name].classList.add('active');
+    Object.entries(views).forEach(([key, v]) => {
+      const isActive = key === name;
+      v.classList.toggle('active', isActive);
+      v.setAttribute('aria-hidden', String(!isActive));
+    });
     nav.classList.toggle('on-dark', name === 'home' || name === 'contact' || name === 'project');
     nav.classList.toggle('on-light', name === 'projects' || name === 'reznik');
-    navLinks.forEach(a => a.classList.toggle('current', a.dataset.goto === name || (name === 'project' && a.dataset.goto === 'projects')));
+    navLinks.forEach(a => {
+      const isCurrent = a.dataset.goto === name || (name === 'project' && a.dataset.goto === 'projects');
+      a.classList.toggle('current', isCurrent);
+      if(isCurrent) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
     window.scrollTo(0,0);
     views[name].scrollTop = 0;
+    // move focus to the new view so screen reader / keyboard users get the context change
+    views[name].focus({ preventScroll: true });
   }
 
   document.querySelectorAll('[data-goto]').forEach(el => {
@@ -562,11 +606,11 @@
       body:'פינוי בינוי ל-128 יח"ד קיימות והקמת 491 יח"ד חדשות במתחם 2, כולל תכנון מתחם מבני הציבור לחינוך וקהילה במסגרת תכנית להתחדשות עירונית ברחוב הנורית — תמ"ל 2020 שבתוקף.',
       status:'סטטוס: תב"ע מאושרת',
       hero:'img-site/330-jrn2/jrn2-1.webp',
-      gallery:['img-site/330-jrn2/jrn2-main.webp','img-site/330-jrn2/jrn2-2.webp','img-site/330-jrn2/jrn2-3.webp','img-site/330-jrn2/jrn2-4.webp','img-site/330-jrn2/jrn2-5.webp'] },
-    { name:'מגדל שעון השמש', meta:'מגדל — ירושלים',
+      gallery:['img-site/330-jrn2/jrn2-main.webp','img-site/330-jrn2/jrn2-2.webp','img-site/330-jrn2/jrn2-3.webp','img-site/330-jrn2/jrn2-5.webp','img-site/330-jrn2/jrn2-4.webp'] },
+    { name:'מגדל שעון השמש', meta:'מגדל — ירושלים', id:'jrsh',
       client:'לקוח: גולדן סיטי', body:'', status:'',
       hero:'img-site/347-jrsh/jrsh-1.webp',
-      gallery:['img-site/347-jrsh/jrsh-main.webp','img-site/347-jrsh/jrsh-2.webp','img-site/347-jrsh/jrsh-3.webp'] },
+      gallery:['img-site/347-jrsh/jrsh-main.webp','img-site/347-jrsh/jrsh-3.webp','img-site/347-jrsh/jrsh-2.webp'] },
     { name:'סן מרטין', meta:'פינוי בינוי — ירושלים',
       client:'לקוח: חב\' אבגד',
       body:'פינוי בינוי והקמת 90 יח"ד חדשות.', status:'',
@@ -606,7 +650,9 @@
       });
     const gallery = document.getElementById('projGallery');
     gallery.innerHTML = '';
+    gallery.classList.toggle('gallery-jrsh', p.id === 'jrsh');
     currentGallery = p.gallery.map(item => typeof item === 'object' ? item.src : item);
+    currentGalleryAlts = p.gallery.map((item, idx) => `${p.name} — תמונה ${idx + 1} מתוך ${p.gallery.length}`);
     p.gallery.forEach((item, idx) => {
       const isObj = typeof item === 'object';
       const src = isObj ? item.src : item;
@@ -615,7 +661,7 @@
       if(isObj && item.layout) div.classList.add(item.layout);
       const img = document.createElement('img');
       img.src = src;
-      img.alt = p.name;
+      img.alt = currentGalleryAlts[idx];
       img.loading = 'lazy';
       div.appendChild(img);
       div.addEventListener('click', () => openLightbox(idx));
@@ -629,21 +675,32 @@
 
   // ---- lightbox: enlarged photo view with prev/next browsing ----
   let currentGallery = [];
+  let currentGalleryAlts = [];
   let lightboxIndex = 0;
   const lightbox = document.getElementById('lightbox');
   const lbImg = document.getElementById('lbImg');
 
+  let lastFocusedBeforeLightbox = null;
+  const lbFocusable = () => Array.from(lightbox.querySelectorAll('button'));
+
   function openLightbox(idx){
     lightboxIndex = idx;
     lbImg.src = currentGallery[idx];
+    lbImg.alt = currentGalleryAlts[idx] || '';
+    lastFocusedBeforeLightbox = document.activeElement;
     lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.getElementById('lbClose').focus();
   }
   function closeLightbox(){
     lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    if(lastFocusedBeforeLightbox) lastFocusedBeforeLightbox.focus();
   }
   function lbShow(delta){
     lightboxIndex = (lightboxIndex + delta + currentGallery.length) % currentGallery.length;
     lbImg.src = currentGallery[lightboxIndex];
+    lbImg.alt = currentGalleryAlts[lightboxIndex] || '';
   }
   document.getElementById('lbClose').addEventListener('click', closeLightbox);
   document.getElementById('lbPrev').addEventListener('click', () => lbShow(-1));
@@ -654,6 +711,13 @@
     if(e.key === 'Escape') closeLightbox();
     if(e.key === 'ArrowRight') lbShow(1);
     if(e.key === 'ArrowLeft') lbShow(-1);
+    if(e.key === 'Tab'){
+      // trap focus inside the modal while it's open
+      const focusable = lbFocusable();
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
   });
 
   document.querySelectorAll('[data-project]').forEach(el => {
@@ -691,8 +755,20 @@
   }
   function nextSlide(){ goToSlide((current + 1) % slides.length); }
   function prevSlide(){ goToSlide((current - 1 + slides.length) % slides.length); }
-  function resetTimer(){ clearInterval(timer); timer = setInterval(nextSlide, 5000); }
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const heroEl = document.querySelector('.hero');
+  let heroPaused = false;
+  function resetTimer(){
+    clearInterval(timer);
+    if(prefersReducedMotion || heroPaused) return;
+    timer = setInterval(nextSlide, 4000); // was 5000 — a touch faster per request
+  }
   resetTimer();
+  // required for auto-advancing content: let people stop it (hover or keyboard focus)
+  heroEl.addEventListener('mouseenter', () => { heroPaused = true; clearInterval(timer); });
+  heroEl.addEventListener('mouseleave', () => { heroPaused = false; resetTimer(); });
+  heroEl.addEventListener('focusin', () => { heroPaused = true; clearInterval(timer); });
+  heroEl.addEventListener('focusout', () => { heroPaused = false; resetTimer(); });
 
   document.getElementById('heroPrev').addEventListener('click', prevSlide);
   document.getElementById('heroNext').addEventListener('click', nextSlide);
