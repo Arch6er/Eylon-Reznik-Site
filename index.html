@@ -86,7 +86,7 @@
     background:transparent; color:inherit; padding:0; box-shadow:none;
     display:flex; align-items:center; justify-content:center;
   }
-  .a11y-toggle svg{ width:2.3em; height:2.3em; }
+  .a11y-toggle svg{ width:1em; height:1em; }
   .a11y-toggle:hover{ opacity:0.7; }
   .a11y-toggle:focus-visible{ outline:2px solid currentColor; outline-offset:3px; }
   .a11y-panel{
@@ -147,6 +147,9 @@
   .nav a, .nav .logo, .nav .a11y-widget, .nav .a11y-widget *{ pointer-events:auto; }
   .nav.on-dark *{ color:#fff; }
   .nav.on-light *{ color: var(--ink); }
+  /* the a11y panel is a fixed white popup — it must never inherit the nav's on-dark/on-light
+     color swap, or its text renders white-on-white (invisible) whenever the nav is on-dark */
+  .nav .a11y-panel, .nav .a11y-panel *{ color: var(--ink) !important; }
 
   .logo{
     font-family:'Neue Montreal', sans-serif;
@@ -316,11 +319,20 @@
   .proj-desc p{ font-size:1.28rem; line-height:1.9; color: rgba(20,20,15,0.72); margin-top:1.2rem; max-width:75ch; }
   .proj-desc p.proj-status{ font-size:1rem; letter-spacing:0.04em; text-transform:uppercase; opacity:0.6; }
   /* each gallery photo keeps its own true proportions — no forced crop, portrait stays tall, landscape stays wide */
-  .proj-gallery{ columns: 2; column-gap: 1.4rem; padding: 3rem 0 7rem; }
-  .proj-gallery .g{ break-inside: avoid; margin-bottom: 1.4rem; overflow:hidden; cursor:zoom-in; }
+  /* each gallery photo keeps its own true proportions — no forced crop, portrait stays tall, landscape stays wide.
+     A plain 2-column grid with photos alternating left/right in order (not CSS-columns masonry) —
+     the browser's own column-balancing was unpredictable and could leave a photo stranded with
+     a big empty gap under a shorter column. */
+  .proj-gallery{ display:grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; padding: 3rem 0 7rem; align-items:start; }
+  .proj-gallery .g{ overflow:hidden; cursor:zoom-in; }
   .proj-gallery .g img{ width:100%; height:auto; display:block; transition: transform 0.6s ease; }
   .proj-gallery .g:hover img{ transform: scale(1.05); }
-  @media (max-width:900px){ .proj-gallery{ columns:1; } }
+  .proj-gallery .g:nth-child(odd){ grid-column:1; }
+  .proj-gallery .g:nth-child(even){ grid-column:2; }
+  @media (max-width:900px){
+    .proj-gallery{ grid-template-columns:1fr; }
+    .proj-gallery .g:nth-child(odd), .proj-gallery .g:nth-child(even){ grid-column:1; }
+  }
   /* מגדל שעון השמש: 2 תמונות לרוחב מוערמות בצד שמאל, תמונה גבוהה אחת בצד ימין */
   .proj-gallery.gallery-jrsh{
     columns: initial;
@@ -428,8 +440,6 @@
           <path d="M12 10v4.5"/>
           <path d="M12 14.5 8.5 21"/>
           <path d="M12 14.5 15.5 21"/>
-          <path d="M8 13.5 5.5 16"/>
-          <path d="M16 13.5 18.5 16"/>
         </svg>
       </button>
       <div class="a11y-panel" id="a11yPanel" role="menu" aria-label="אפשרויות נגישות" hidden>
