@@ -78,17 +78,19 @@
   .view.dark{ background: var(--ink); color: var(--off-white); }
   .view:focus{ outline:none; }
 
-  /* ---- accessibility widget ---- */
-  .a11y-widget{ position:fixed; left:1.1rem; bottom:1.1rem; z-index:1000; }
+  /* ---- accessibility widget: lives inline in the nav row now, matching the other nav links'
+     color (via .nav.on-dark/.on-light) and roughly their size, instead of a floating button ---- */
+  .a11y-widget{ position:relative; display:flex; align-items:center; font-size:1.02rem; }
   .a11y-toggle{
-    width:50px; height:50px; border-radius:50%; border:none; cursor:pointer;
-    background: var(--ink); color:#fff; display:flex; align-items:center; justify-content:center;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.28);
+    width:auto; height:auto; border-radius:0; border:none; cursor:pointer;
+    background:transparent; color:inherit; padding:0; box-shadow:none;
+    display:flex; align-items:center; justify-content:center;
   }
-  .a11y-toggle:hover{ background:#2a2a22; }
-  .a11y-toggle:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
+  .a11y-toggle svg{ width:1.2em; height:1.2em; }
+  .a11y-toggle:hover{ opacity:0.7; }
+  .a11y-toggle:focus-visible{ outline:2px solid currentColor; outline-offset:3px; }
   .a11y-panel{
-    position:absolute; bottom:60px; left:0; width:250px;
+    position:absolute; top:calc(100% + 14px); right:0; width:250px; z-index:1000;
     background:#fff; color:var(--ink); border-radius:12px;
     box-shadow: 0 10px 34px rgba(0,0,0,0.24); padding:1.1rem 1.1rem 0.9rem;
     font-family:'NextExit Light','Segoe UI', Arial, sans-serif;
@@ -142,7 +144,7 @@
     -webkit-backface-visibility: hidden;
     will-change: transform;
   }
-  .nav a, .nav .logo{ pointer-events:auto; }
+  .nav a, .nav .logo, .nav .a11y-toggle{ pointer-events:auto; }
   .nav.on-dark *{ color:#fff; }
   .nav.on-light *{ color: var(--ink); }
 
@@ -289,6 +291,7 @@
   .reznik-intro{ max-width: none; }
   .reznik-intro h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:1rem; }
   .reznik-intro p{ font-size:1.18rem; line-height:1.9; color: rgba(20,20,15,0.72); margin-top:1.6rem; max-width:90ch; }
+  .wrap.reznik-gallery{ max-width:none; padding: 0 1.75rem; }
   .reznik-gallery{ columns:3; column-gap:1.2rem; padding: 3rem 0 1rem; }
   .reznik-gallery img{ width:100%; display:block; margin-bottom:1.2rem; break-inside:avoid; background:#eee; }
   .reznik-works{ padding: 3rem 0 6rem; border-top:1px solid var(--line-soft); margin-top:2rem; }
@@ -336,6 +339,27 @@
     .proj-gallery.gallery-jrsh .g:nth-child(3){ grid-row:auto; }
     .proj-gallery.gallery-jrsh .g img{ height:auto; }
   }
+  /* הנורית: 3 תמונות לרוחב מוערמות בצד ימין, תמונה לאורך + תמונה לרוחב בצד שמאל —
+     כך שכל התמונות מסתיימות באותה שורה תחתונה */
+  .proj-gallery.gallery-jrn2{
+    columns: initial;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 1.4rem;
+  }
+  .proj-gallery.gallery-jrn2 .g{ margin-bottom:0; height:100%; }
+  .proj-gallery.gallery-jrn2 .g img{ width:100%; height:100%; object-fit:cover; }
+  .proj-gallery.gallery-jrn2 .g:nth-child(1){ grid-column:2; grid-row:1; }
+  .proj-gallery.gallery-jrn2 .g:nth-child(2){ grid-column:2; grid-row:2; }
+  .proj-gallery.gallery-jrn2 .g:nth-child(3){ grid-column:2; grid-row:3; }
+  .proj-gallery.gallery-jrn2 .g:nth-child(4){ grid-column:1; grid-row: 1 / span 2; }
+  .proj-gallery.gallery-jrn2 .g:nth-child(5){ grid-column:1; grid-row:3; }
+  @media (max-width:900px){
+    .proj-gallery.gallery-jrn2{ grid-template-columns:1fr; grid-template-rows:auto; }
+    .proj-gallery.gallery-jrn2 .g{ grid-column:1 !important; grid-row:auto !important; }
+    .proj-gallery.gallery-jrn2 .g img{ height:auto; }
+  }
   /* full page-height click strip along each side, not just the small circle icon */
   .proj-nav{ position:fixed; top:0; bottom:0; width: clamp(64px, 9vw, 140px); background:transparent; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.55; mix-blend-mode:difference; transition: opacity 0.3s ease; z-index:90; }
   .proj-nav svg{ width:20px; height:20px; }
@@ -381,6 +405,7 @@
       padding:0; padding-top:0.5rem; gap:0.6rem;
     }
     .nav-links a{ font-size:0.84rem; }
+    .nav-links .a11y-widget{ font-size:0.84rem; }
     .wrap{ padding: 0 1.4rem; }
     .stat-row{ gap:2.2rem; flex-wrap:wrap; }
     .wrap.grid{ max-width:1400px; padding: 0 1.4rem; }
@@ -416,6 +441,34 @@
     <a href="#" data-goto="about">About Us</a>
     <a href="#" data-goto="reznik">Reznik</a>
     <a href="#" data-goto="contact">Contact</a>
+    <div class="a11y-widget" lang="he" dir="rtl">
+      <button id="a11yToggle" class="a11y-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="a11yPanel" aria-label="תפריט נגישות">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="4.5" r="2"/>
+          <path d="M4 8.5c2.5 1 5.2 1.5 8 1.5s5.5-.5 8-1.5"/>
+          <path d="M12 10v4.5"/>
+          <path d="M12 14.5 8.5 21"/>
+          <path d="M12 14.5 15.5 21"/>
+          <path d="M8 13.5 5.5 16"/>
+          <path d="M16 13.5 18.5 16"/>
+        </svg>
+      </button>
+      <div class="a11y-panel" id="a11yPanel" role="menu" aria-label="אפשרויות נגישות" hidden>
+        <h2>נגישות</h2>
+        <div class="a11y-row">
+          <span>גודל טקסט</span>
+          <div class="a11y-btns">
+            <button type="button" data-a11y="text-dec" aria-label="הקטן טקסט">א-</button>
+            <button type="button" data-a11y="text-reset" aria-label="אפס גודל טקסט">א</button>
+            <button type="button" data-a11y="text-inc" aria-label="הגדל טקסט">א+</button>
+          </div>
+        </div>
+        <button type="button" class="a11y-toggle-row" data-a11y="contrast" aria-pressed="false">ניגודיות גבוהה</button>
+        <button type="button" class="a11y-toggle-row" data-a11y="stop-motion" aria-pressed="false">עצירת אנימציות</button>
+        <button type="button" class="a11y-toggle-row" data-a11y="highlight-links" aria-pressed="false">הדגשת קישורים</button>
+        <button type="button" class="a11y-reset" data-a11y="reset">איפוס הגדרות נגישות</button>
+      </div>
+    </div>
   </div>
 </nav>
 <div class="nav-scrim" id="navScrim"></div>
@@ -577,36 +630,6 @@
   <button class="lb-nav next" id="lbNext" aria-label="Next photo"><svg viewBox="0 0 24 24"><path d="m9 4 8 8-8 8"/></svg></button>
 </div>
 
-<!-- ACCESSIBILITY WIDGET -->
-<div class="a11y-widget" lang="he" dir="rtl">
-  <button id="a11yToggle" class="a11y-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="a11yPanel" aria-label="תפריט נגישות">
-    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="4.5" r="2"/>
-      <path d="M4 8.5c2.5 1 5.2 1.5 8 1.5s5.5-.5 8-1.5"/>
-      <path d="M12 10v4.5"/>
-      <path d="M12 14.5 8.5 21"/>
-      <path d="M12 14.5 15.5 21"/>
-      <path d="M8 13.5 5.5 16"/>
-      <path d="M16 13.5 18.5 16"/>
-    </svg>
-  </button>
-  <div class="a11y-panel" id="a11yPanel" role="menu" aria-label="אפשרויות נגישות" hidden>
-    <h2>נגישות</h2>
-    <div class="a11y-row">
-      <span>גודל טקסט</span>
-      <div class="a11y-btns">
-        <button type="button" data-a11y="text-dec" aria-label="הקטן טקסט">א-</button>
-        <button type="button" data-a11y="text-reset" aria-label="אפס גודל טקסט">א</button>
-        <button type="button" data-a11y="text-inc" aria-label="הגדל טקסט">א+</button>
-      </div>
-    </div>
-    <button type="button" class="a11y-toggle-row" data-a11y="contrast" aria-pressed="false">ניגודיות גבוהה</button>
-    <button type="button" class="a11y-toggle-row" data-a11y="stop-motion" aria-pressed="false">עצירת אנימציות</button>
-    <button type="button" class="a11y-toggle-row" data-a11y="highlight-links" aria-pressed="false">הדגשת קישורים</button>
-    <button type="button" class="a11y-reset" data-a11y="reset">איפוס הגדרות נגישות</button>
-  </div>
-</div>
-
 <script>
   // ---- view switching ----
   const views = {
@@ -676,7 +699,7 @@
       status:'סטטוס: עמידה בתנאי סף',
       hero:'img-site/355-jrgl/jrgl-1.webp',
       gallery:['img-site/355-jrgl/jrgl-main.webp','img-site/355-jrgl/jrgl-2.webp','img-site/355-jrgl/jrgl-3.webp','img-site/355-jrgl/jrgl-4.webp','img-site/355-jrgl/jrgl-5.webp'] },
-    { name:'הנורית', meta:'פינוי בינוי — ירושלים',
+    { name:'הנורית', meta:'פינוי בינוי — ירושלים', id:'jrn2',
       client:'לקוח: חב\' עינב',
       body:'פינוי בינוי ל-128 יח"ד קיימות והקמת 491 יח"ד חדשות במתחם 2, כולל תכנון מתחם מבני הציבור לחינוך וקהילה במסגרת תכנית להתחדשות עירונית ברחוב הנורית — תמ"ל 2020 שבתוקף.',
       status:'סטטוס: תב"ע מאושרת',
@@ -726,6 +749,7 @@
     const gallery = document.getElementById('projGallery');
     gallery.innerHTML = '';
     gallery.classList.toggle('gallery-jrsh', p.id === 'jrsh');
+    gallery.classList.toggle('gallery-jrn2', p.id === 'jrn2');
     currentGallery = p.gallery.map(item => typeof item === 'object' ? item.src : item);
     currentGalleryAlts = p.gallery.map((item, idx) => `${p.name} — תמונה ${idx + 1} מתוך ${p.gallery.length}`);
     p.gallery.forEach((item, idx) => {
@@ -840,8 +864,14 @@
   resetTimer();
   // accessibility requirement (WCAG 2.2.2) is satisfied by this pause-on-hover/focus —
   // no need to also hard-stop it for prefers-reduced-motion, which was silently killing autoplay
-  heroEl.addEventListener('mouseenter', () => { heroPaused = true; clearInterval(timer); });
-  heroEl.addEventListener('mouseleave', () => { heroPaused = false; resetTimer(); });
+  // pause-on-hover only for pointers that truly support hover (mouse/trackpad).
+  // On touch devices tapping the hero fired a synthetic "mouseenter" with no matching
+  // "mouseleave" ever firing afterwards, which silently froze the slideshow for good
+  // after the very first tap — this was almost certainly the "works half the time" bug.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    heroEl.addEventListener('mouseenter', () => { heroPaused = true; clearInterval(timer); });
+    heroEl.addEventListener('mouseleave', () => { heroPaused = false; resetTimer(); });
+  }
   heroEl.addEventListener('focusin', () => { heroPaused = true; clearInterval(timer); });
   heroEl.addEventListener('focusout', () => { heroPaused = false; resetTimer(); });
 
@@ -869,7 +899,7 @@
       if(e.key === 'Escape' && !panel.hidden){ setPanelOpen(false); toggle.focus(); }
     });
     document.addEventListener('click', (e) => {
-      if(!panel.hidden && !panel.contains(e.target) && e.target !== toggle){ setPanelOpen(false); }
+      if(!panel.hidden && !panel.contains(e.target) && !toggle.contains(e.target)){ setPanelOpen(false); }
     });
 
     function apply(){
