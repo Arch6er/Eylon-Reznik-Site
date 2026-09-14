@@ -86,7 +86,7 @@
     background:transparent; color:inherit; padding:0; box-shadow:none;
     display:flex; align-items:center; justify-content:center;
   }
-  .a11y-toggle svg{ width:1.2em; height:1.2em; }
+  .a11y-toggle svg{ width:2.3em; height:2.3em; }
   .a11y-toggle:hover{ opacity:0.7; }
   .a11y-toggle:focus-visible{ outline:2px solid currentColor; outline-offset:3px; }
   .a11y-panel{
@@ -144,7 +144,7 @@
     -webkit-backface-visibility: hidden;
     will-change: transform;
   }
-  .nav a, .nav .logo, .nav .a11y-toggle{ pointer-events:auto; }
+  .nav a, .nav .logo, .nav .a11y-widget, .nav .a11y-widget *{ pointer-events:auto; }
   .nav.on-dark *{ color:#fff; }
   .nav.on-light *{ color: var(--ink); }
 
@@ -164,7 +164,7 @@
   }
   .nav.on-light .logo img{ filter: invert(1); }
   
-  .nav-links{ display:flex; flex-wrap:nowrap; gap: 2.4rem; padding-top:1.6rem; flex-shrink:0; }
+  .nav-links{ display:flex; flex-wrap:nowrap; align-items:center; gap: 2.4rem; padding-top:1.6rem; flex-shrink:0; }
   .nav-links a{
     font-size: 1.02rem;
     letter-spacing: 0.13em;
@@ -200,7 +200,7 @@
   /* ---------- HOME / HERO ---------- */
   .hero{ position:relative; width:100%; height:100%; overflow:hidden; background:#1c1b17; }
 
-  .slide{ position:absolute; inset:0; opacity:0; transition: opacity 1.3s ease; }
+  .slide{ position:absolute; inset:0; opacity:0; transition: opacity 1.6s ease; }
   .slide.active{ opacity:1; }
 
   .slide-img{
@@ -338,27 +338,6 @@
     .proj-gallery.gallery-jrsh{ grid-template-columns:1fr; grid-template-rows:auto; }
     .proj-gallery.gallery-jrsh .g:nth-child(3){ grid-row:auto; }
     .proj-gallery.gallery-jrsh .g img{ height:auto; }
-  }
-  /* הנורית: 3 תמונות לרוחב מוערמות בצד ימין, תמונה לאורך + תמונה לרוחב בצד שמאל —
-     כך שכל התמונות מסתיימות באותה שורה תחתונה */
-  .proj-gallery.gallery-jrn2{
-    columns: initial;
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 1.4rem;
-  }
-  .proj-gallery.gallery-jrn2 .g{ margin-bottom:0; height:100%; }
-  .proj-gallery.gallery-jrn2 .g img{ width:100%; height:100%; object-fit:cover; }
-  .proj-gallery.gallery-jrn2 .g:nth-child(1){ grid-column:2; grid-row:1; }
-  .proj-gallery.gallery-jrn2 .g:nth-child(2){ grid-column:2; grid-row:2; }
-  .proj-gallery.gallery-jrn2 .g:nth-child(3){ grid-column:2; grid-row:3; }
-  .proj-gallery.gallery-jrn2 .g:nth-child(4){ grid-column:1; grid-row: 1 / span 2; }
-  .proj-gallery.gallery-jrn2 .g:nth-child(5){ grid-column:1; grid-row:3; }
-  @media (max-width:900px){
-    .proj-gallery.gallery-jrn2{ grid-template-columns:1fr; grid-template-rows:auto; }
-    .proj-gallery.gallery-jrn2 .g{ grid-column:1 !important; grid-row:auto !important; }
-    .proj-gallery.gallery-jrn2 .g img{ height:auto; }
   }
   /* full page-height click strip along each side, not just the small circle icon */
   .proj-nav{ position:fixed; top:0; bottom:0; width: clamp(64px, 9vw, 140px); background:transparent; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0.55; mix-blend-mode:difference; transition: opacity 0.3s ease; z-index:90; }
@@ -699,7 +678,7 @@
       status:'סטטוס: עמידה בתנאי סף',
       hero:'img-site/355-jrgl/jrgl-1.webp',
       gallery:['img-site/355-jrgl/jrgl-main.webp','img-site/355-jrgl/jrgl-2.webp','img-site/355-jrgl/jrgl-3.webp','img-site/355-jrgl/jrgl-4.webp','img-site/355-jrgl/jrgl-5.webp'] },
-    { name:'הנורית', meta:'פינוי בינוי — ירושלים', id:'jrn2',
+    { name:'הנורית', meta:'פינוי בינוי — ירושלים',
       client:'לקוח: חב\' עינב',
       body:'פינוי בינוי ל-128 יח"ד קיימות והקמת 491 יח"ד חדשות במתחם 2, כולל תכנון מתחם מבני הציבור לחינוך וקהילה במסגרת תכנית להתחדשות עירונית ברחוב הנורית — תמ"ל 2020 שבתוקף.',
       status:'סטטוס: תב"ע מאושרת',
@@ -749,7 +728,6 @@
     const gallery = document.getElementById('projGallery');
     gallery.innerHTML = '';
     gallery.classList.toggle('gallery-jrsh', p.id === 'jrsh');
-    gallery.classList.toggle('gallery-jrn2', p.id === 'jrn2');
     currentGallery = p.gallery.map(item => typeof item === 'object' ? item.src : item);
     currentGalleryAlts = p.gallery.map((item, idx) => `${p.name} — תמונה ${idx + 1} מתוך ${p.gallery.length}`);
     p.gallery.forEach((item, idx) => {
@@ -854,26 +832,13 @@
   }
   function nextSlide(){ goToSlide((current + 1) % slides.length); }
   function prevSlide(){ goToSlide((current - 1 + slides.length) % slides.length); }
-  const heroEl = document.querySelector('.hero');
   let heroPaused = false;
   function resetTimer(){
     clearInterval(timer);
     if(heroPaused) return;
-    timer = setInterval(nextSlide, 3500); // faster, and now actually runs
+    timer = setInterval(nextSlide, 5000);
   }
   resetTimer();
-  // accessibility requirement (WCAG 2.2.2) is satisfied by this pause-on-hover/focus —
-  // no need to also hard-stop it for prefers-reduced-motion, which was silently killing autoplay
-  // pause-on-hover only for pointers that truly support hover (mouse/trackpad).
-  // On touch devices tapping the hero fired a synthetic "mouseenter" with no matching
-  // "mouseleave" ever firing afterwards, which silently froze the slideshow for good
-  // after the very first tap — this was almost certainly the "works half the time" bug.
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    heroEl.addEventListener('mouseenter', () => { heroPaused = true; clearInterval(timer); });
-    heroEl.addEventListener('mouseleave', () => { heroPaused = false; resetTimer(); });
-  }
-  heroEl.addEventListener('focusin', () => { heroPaused = true; clearInterval(timer); });
-  heroEl.addEventListener('focusout', () => { heroPaused = false; resetTimer(); });
 
   document.getElementById('heroPrev').addEventListener('click', prevSlide);
   document.getElementById('heroNext').addEventListener('click', nextSlide);
