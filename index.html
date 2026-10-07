@@ -210,7 +210,7 @@
 
   .wrap{ max-width: 1400px; margin:0 auto; padding: 0 3rem; }
 
-  .eyebrow{ font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.68;
+  .eyebrow{ font-size:1.36rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.68;
     display:flex; align-items:center; gap:0.8rem;
   }
   .eyebrow::before{
@@ -272,32 +272,56 @@
 
   /* ---------- ABOUT ---------- */
   #view-about{ padding-top: 0; }
-  .about-split{ display:grid; grid-template-columns: 42% 58%; }
-  .about-red{ background: #c8341f; color:#fff; position:relative; padding: 11.9rem 3rem 3rem 2.2rem; }
-  .about-portrait{ width:100%; aspect-ratio: 3/4; max-width:480px; background-size:cover; background-position:center; margin-top:1rem; }
+  /* on desktop, the whole About page fits one screen with no scrolling: it becomes a
+     column of [hero split] + [office links strip] pinned to the viewport height, with
+     the split's two columns centering their own content in whatever space is left.
+     Phones keep normal scrolling (see the max-width:900px block) since there just
+     isn't enough vertical room on a small screen to fit all of this without it. */
+  /* NAV_CLEARANCE must always reserve the nav's real rendered height (logo height, which is
+     a fixed px value and does not scale with the text-size accessibility setting, plus the
+     nav's own vertical rem padding on both sides, plus a small buffer) — never less, or the
+     centered column below can visually ride up underneath the fixed nav on a short window. */
+  @media (min-width:901px){
+    #view-about{ display:flex; flex-direction:column; height:100vh; overflow:hidden; }
+    .about-split{ flex:1 1 auto; min-height:0; }
+    .about-red, .about-white{
+      display:flex; flex-direction:column; height:100%; overflow:hidden;
+      padding-top: calc(162px + 4.8rem + 0.3rem);
+    }
+    .about-red-inner, .about-white-inner{
+      flex:1 1 auto; min-height:0; overflow:hidden;
+      display:flex; flex-direction:column; justify-content:center;
+    }
+  }
+  .about-split{ display:grid; grid-template-columns: 38% 62%; }
+  .about-red{ background: #c8341f; color:#fff; position:relative; padding-right:3rem; padding-bottom:1rem; padding-left:2.2rem; }
+  .about-portrait{ width:100%; aspect-ratio: 3/4; max-width:380px; max-height:42vh; background-size:cover; background-position:center; margin-top:1rem; }
   .about-names{ display:flex; margin-top:0.9rem; max-width:480px; font-size:1.15rem; letter-spacing:0.02em; opacity:0.9; }
   .about-names span{ flex:1; }
   .about-names span:first-child{ border-inline-end:1px solid rgba(255,255,255,0.3); padding-inline-end:0.8rem; }
   .about-names span:last-child{ padding-inline-start:0.8rem; }
 
-  .about-white{ padding: 11.9rem 3.5rem 3rem; }
-  .about-white h1{ font-size: clamp(1.7rem, 2.6vw, 2.4rem); line-height:1.2; }
-  .about-white .eyebrow{ margin-bottom:0.6rem; }
+  .about-white{ padding-right:3.5rem; padding-bottom:1rem; padding-left:3.5rem; }
+  .about-white h1{ font-size: clamp(1.2rem, 1.8vw, 1.7rem); line-height:1.08; }
+  .about-white .eyebrow{ margin-bottom:0.35rem; }
   .about-copy a{ border-bottom:1px solid currentColor; padding-bottom:1px; }
-  .about-copy{ margin-top:3rem; }
-  .about-copy p{ font-size:1.18rem; line-height:1.9; color: rgba(20,20,15,0.72); max-width:none; }
-  .about-copy p + p{ margin-top:1.4rem; }
+  .about-copy{ margin-top:0.6rem; }
+  .about-copy p{ font-size:0.92rem; line-height:1.4; color: rgba(20,20,15,0.72); max-width:none; }
+  .about-copy p + p{ margin-top:0.4rem; }
 
-  .stat-row{ display:flex; gap:3.5rem; margin-top:3rem; padding-top:2.2rem; border-top:1px solid var(--line-soft); }
-  .stat .n{ font-family:'Questrial', sans-serif; font-size:2rem; }
+  .stat-row{ display:flex; gap:3.5rem; margin-top:0.5rem; padding-top:0.5rem; border-top:1px solid var(--line-soft); }
+  .stat .n{ font-family:'Questrial', sans-serif; font-size:1.3rem; }
   .stat .l{ font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.68; margin-top:0.35rem; }
 
-  .about-history{ display:grid; grid-template-columns: 42% 58%; }
-  .history-block{ padding: 4rem 3.5rem; }
+  /* shrunk from full paragraphs to a compact clickable teaser strip — each block is now
+     a link straight to that office's own page (Reznik / archiTECHteam), so the fuller
+     history text lives there instead of being duplicated here */
+  .about-history{ display:grid; grid-template-columns: 42% 58%; flex-shrink:0; }
+  .history-block{ display:block; padding: 0.75rem 3.5rem; transition: opacity 0.25s ease; }
+  .history-block:hover{ opacity:0.82; }
   .history-block.red{ background:#c8341f; color:#fff; padding-left:2.8rem; }
-  .history-block h3{ font-size:1.1rem; margin-bottom:1.4rem; }
-  .history-block p{ font-size:1.08rem; line-height:1.85; opacity:0.85; max-width:none; }
-  .history-block p + p{ margin-top:1.2rem; }
+  .history-block h3{ font-size:1.1rem; }
+  .history-cta{ font-size:0.85rem; letter-spacing:0.04em; opacity:0.75; margin-top:0.4rem; }
 
   @media (max-width: 900px){
     .about-split, .about-history{ grid-template-columns:1fr; }
@@ -315,10 +339,12 @@
   .reznik-intro h1{ font-size: clamp(1.9rem, 3.6vw, 3rem); margin-top:1rem; }
   .reznik-intro p{ font-size:1.18rem; line-height:1.9; color: rgba(20,20,15,0.72); margin-top:1.6rem; max-width:90ch; }
   .wrap.reznik-gallery{ max-width:none; padding: 0 1.75rem; }
-  /* much smaller tiles than before — similar scale to the Projects grid cells,
-     auto-filling as many columns as fit rather than always exactly 3 huge ones */
-  .reznik-gallery{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:1.2rem; padding: 3rem 0 1rem; }
-  .reznik-gallery img{ width:100%; height:100%; display:block; aspect-ratio: 4/3; object-fit:cover; background:#eee; }
+  /* same size/style as the photo gallery at the bottom of individual project pages:
+     a 2-column masonry where each photo keeps its own true proportions, no forced crop */
+  /* sized/styled like the Projects LISTING grid (the small tile grid you click into each
+     project from) — not the big photos inside an individual project's own gallery */
+  .reznik-gallery{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1.25rem; padding: 3rem 0 6rem; }
+  .reznik-gallery img{ width:100%; height:100%; aspect-ratio: 4/3; object-fit:cover; display:block; background:#eee; }
   .reznik-works{ padding: 3rem 0 6rem; border-top:1px solid var(--line-soft); margin-top:2rem; }
   .reznik-works h3{ font-size:1.05rem; margin-bottom:0.4rem; }
   .reznik-works .eyebrow{ margin-bottom:0.6rem; }
@@ -326,7 +352,7 @@
   .reznik-works li{ padding:1rem 0; border-bottom:1px solid var(--line-soft); font-size:1.1rem; }
   .reznik-works a{ border-bottom:1px solid currentColor; padding-bottom:1px; }
   @media (max-width:900px){
-    .reznik-gallery{ grid-template-columns:repeat(2,1fr); }
+    .reznik-gallery{ grid-template-columns: 1fr; }
   }
 
   /* ---------- PROJECT DETAIL ---------- */
@@ -451,7 +477,6 @@
   <div class="nav-links" id="navLinks">
     <a href="#" data-goto="projects" class="current">Projects</a>
     <a href="#" data-goto="about">About Us</a>
-    <a href="#" data-goto="reznik">Reznik</a>
     <a href="#" data-goto="contact">Contact</a>
     <div class="a11y-widget" lang="he" dir="rtl">
       <button id="a11yToggle" class="a11y-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="a11yPanel" aria-label="תפריט נגישות">
@@ -546,10 +571,13 @@
 <div class="view" id="view-about" tabindex="-1" aria-hidden="true">
   <div class="about-split">
     <div class="about-red">
-      <div class="about-portrait" style="background-image:url('img-site/about-us.webp'); background-position:center 15%;"></div>
-      <div class="about-names" lang="he" dir="rtl"><span>ברוך רזניק — אדריכל</span><span>ענת אילון — אדריכלית</span></div>
+      <div class="about-red-inner">
+        <div class="about-portrait" style="background-image:url('img-site/about-us.webp'); background-position:center 15%;"></div>
+        <div class="about-names" lang="he" dir="rtl"><span>ברוך רזניק — אדריכל</span><span>ענת אילון — אדריכלית</span></div>
+      </div>
     </div>
     <div class="about-white" lang="he" dir="rtl">
+     <div class="about-white-inner">
       <div class="eyebrow">אודות המשרד</div>
       <h1>רזניק אילון אדריכלים<br>ירושלים — תל אביב</h1>
       <div class="about-copy">
@@ -561,19 +589,18 @@
           <div class="stat"><div class="n">2</div><div class="l">סטודיואים — ירושלים ותל אביב</div></div>
         </div>
       </div>
+     </div>
     </div>
   </div>
   <div class="about-history">
-    <div class="history-block red" lang="he" dir="rtl">
+    <a href="#" class="history-block red" data-goto="architechteam" lang="he" dir="rtl">
       <h3>ענת אילון אדריכלים | archiTECHteam</h3>
-      <p>נוסד בשנת 2005 על ידי האדריכלית ענת אילון, archiTECHteam מביא פילוסופיה ייחודית של דמיון ומינימליזם לתכנון — עיצוב מתקדם, חד, פשוט ומדויק, המגיב באמת למקום.</p>
-      <p>המשרד צובר ניסיון עמוק בתכנון פרמטרי רב-תחומי לפרויקטים מורכבים, ומוסיף ערך ייחודי באמצעות פיתוח פרויקטים, פתרונות תכנון מיטביים וטכנולוגיות עדכניות בשיטות עיצוב ובנייה מתקדמות.</p>
-    </div>
-    <div class="history-block" lang="he" dir="rtl">
+      <p class="history-cta">לעמוד המשרד ←</p>
+    </a>
+    <a href="#" class="history-block" data-goto="reznik" lang="he" dir="rtl">
       <h3>דוד רזניק–ברוך רזניק אדריכלים</h3>
-      <p>נוסד בירושלים בשנת 1958 על ידי האדריכל דוד רזניק — חתן פרס ישראל ואחד מגדולי האדריכלים הישראלים בדורו — ופעיל בירושלים עד היום, ומנוהל כיום על ידי האדריכל ברוך רזניק זה למעלה מ-35 שנה.</p>
-      <p>תיק הפרויקטים של המשרד משתרע על פני תכנון עירוני, מבני ציבור, מתחמי מגורים, פרויקטים מסחריים ועיצוב פנים עבור מגוון רחב של לקוחות.</p>
-    </div>
+      <p class="history-cta">לעמוד המשרד ←</p>
+    </a>
   </div>
 </div>
 
@@ -652,10 +679,12 @@
 <!-- ARCHITECHTEAM (placeholder — content and design to follow) -->
 <div class="view" id="view-architechteam" tabindex="-1" aria-hidden="true">
   <div class="wrap reznik-intro" lang="he" dir="rtl" style="padding-bottom:5rem;">
-    <div class="eyebrow">רטרוספקטיבה</div>
+    <div class="eyebrow">אודות</div>
     <h1>ענת אילון אדריכלים | archiTECHteam</h1>
     <div class="about-copy">
-      <p>העמוד הזה בהכנה — התוכן והעיצוב יתווספו בהמשך.</p>
+      <p>נוסד בשנת 2005 על ידי האדריכלית ענת אילון, archiTECHteam מביא פילוסופיה ייחודית של דמיון ומינימליזם לתכנון — עיצוב מתקדם, חד, פשוט ומדויק, המגיב באמת למקום.</p>
+      <p>המשרד צובר ניסיון עמוק בתכנון פרמטרי רב-תחומי לפרויקטים מורכבים, ומוסיף ערך ייחודי באמצעות פיתוח פרויקטים, פתרונות תכנון מיטביים וטכנולוגיות עדכניות בשיטות עיצוב ובנייה מתקדמות.</p>
+      <p style="opacity:0.6; margin-top:2rem;">— תוכן ועיצוב נוספים לעמוד זה יתווספו בהמשך.</p>
     </div>
   </div>
 </div>
@@ -718,7 +747,27 @@
     views[name].scrollTop = 0;
     // move focus to the new view so screen reader / keyboard users get the context change
     views[name].focus({ preventScroll: true });
+    // only the individual project page gets the "nav scrolls away over the hero photo,
+    // then stays put/visible for the rest of the page" treatment below — every other
+    // page keeps the normal always-fixed nav, so reset it when leaving the project view
+    if(name !== 'project'){ nav.style.transform = ''; }
+    else { updateProjectNavScroll(); }
   }
+
+  // ---- project-detail nav: scrolls away with the page while the big hero photo is in
+  // view (like a normal, non-fixed header would), then locks back into its usual fixed,
+  // visible position once the hero has fully scrolled past, so navigation stays
+  // reachable for the rest of that project's (often long) description + photo gallery ----
+  const viewProjectEl = document.getElementById('view-project');
+  function updateProjectNavScroll(){
+    const heroH = document.getElementById('projHero').offsetHeight;
+    const st = viewProjectEl.scrollTop;
+    if(st < heroH){ nav.style.transform = `translateY(${-st}px) translateZ(0)`; }
+    else { nav.style.transform = ''; }
+  }
+  viewProjectEl.addEventListener('scroll', () => {
+    if(viewProjectEl.classList.contains('active')) updateProjectNavScroll();
+  });
 
   document.querySelectorAll('[data-goto]').forEach(el => {
     el.addEventListener('click', (e) => {
