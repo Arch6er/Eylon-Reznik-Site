@@ -302,26 +302,29 @@
   .about-names span:last-child{ padding-inline-start:0.8rem; }
 
   .about-white{ padding-right:3.5rem; padding-bottom:1rem; padding-left:3.5rem; }
-  .about-white h1{ font-size: clamp(1.2rem, 1.8vw, 1.7rem); line-height:1.08; }
-  .about-white .eyebrow{ margin-bottom:0.35rem; }
+  .about-white h1{ font-size: clamp(1.3rem, 2vw, 1.9rem); line-height:1.1; }
+  .about-white .eyebrow{ margin-bottom:0.4rem; }
   .about-copy a{ border-bottom:1px solid currentColor; padding-bottom:1px; }
-  .about-copy{ margin-top:0.6rem; }
-  .about-copy p{ font-size:0.92rem; line-height:1.4; color: rgba(20,20,15,0.72); max-width:none; }
-  .about-copy p + p{ margin-top:0.4rem; }
+  .about-copy{ margin-top:0.7rem; }
+  .about-copy p{ font-size:0.95rem; line-height:1.45; color: rgba(20,20,15,0.72); max-width:none; }
+  .about-copy p + p{ margin-top:0.45rem; }
 
-  .stat-row{ display:flex; gap:3.5rem; margin-top:0.5rem; padding-top:0.5rem; border-top:1px solid var(--line-soft); }
-  .stat .n{ font-family:'Questrial', sans-serif; font-size:1.3rem; }
+  .stat-row{ display:flex; gap:3.5rem; margin-top:0.6rem; padding-top:0.5rem; border-top:1px solid var(--line-soft); }
+  .stat .n{ font-family:'Questrial', sans-serif; font-size:1.35rem; }
   .stat .l{ font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.68; margin-top:0.35rem; }
 
-  /* shrunk from full paragraphs to a compact clickable teaser strip — each block is now
-     a link straight to that office's own page (Reznik / archiTECHteam), so the fuller
-     history text lives there instead of being duplicated here */
+  /* full original descriptive text restored for each office; only the office-name
+     heading is a clickable link to that office's own page, underlined, with a
+     background-appropriate hover color shift */
   .about-history{ display:grid; grid-template-columns: 42% 58%; flex-shrink:0; }
-  .history-block{ display:block; padding: 0.75rem 3.5rem; transition: opacity 0.25s ease; }
-  .history-block:hover{ opacity:0.82; }
+  .history-block{ display:block; padding: 1.1rem 3.5rem; }
   .history-block.red{ background:#c8341f; color:#fff; padding-left:2.8rem; }
-  .history-block h3{ font-size:1.1rem; }
-  .history-cta{ font-size:0.85rem; letter-spacing:0.04em; opacity:0.75; margin-top:0.4rem; }
+  .history-block h3{ font-size:1rem; margin-bottom:0.3rem; }
+  .history-block h3 a{ text-decoration:underline; color:inherit; transition: color 0.2s ease; }
+  .history-block:not(.red) h3 a:hover{ color: rgba(20,20,15,0.55); }
+  .history-block.red h3 a:hover{ color: #fff; opacity:0.75; }
+  .history-block p{ font-size:0.82rem; line-height:1.38; opacity:0.85; }
+  .history-block p + p{ margin-top:0.35rem; }
 
   @media (max-width: 900px){
     .about-split, .about-history{ grid-template-columns:1fr; }
@@ -343,7 +346,7 @@
      a 2-column masonry where each photo keeps its own true proportions, no forced crop */
   /* sized/styled like the Projects LISTING grid (the small tile grid you click into each
      project from) — not the big photos inside an individual project's own gallery */
-  .reznik-gallery{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1.25rem; padding: 3rem 0 6rem; }
+  .reznik-gallery{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 2.75rem 2.25rem; padding: 3rem 0 6rem; }
   .reznik-gallery img{ width:100%; height:100%; aspect-ratio: 4/3; object-fit:cover; display:block; background:#eee; }
   .reznik-works{ padding: 3rem 0 6rem; border-top:1px solid var(--line-soft); margin-top:2rem; }
   .reznik-works h3{ font-size:1.05rem; margin-bottom:0.4rem; }
@@ -593,14 +596,16 @@
     </div>
   </div>
   <div class="about-history">
-    <a href="#" class="history-block red" data-goto="architechteam" lang="he" dir="rtl">
-      <h3>ענת אילון אדריכלים | archiTECHteam</h3>
-      <p class="history-cta">לעמוד המשרד ←</p>
-    </a>
-    <a href="#" class="history-block" data-goto="reznik" lang="he" dir="rtl">
-      <h3>דוד רזניק–ברוך רזניק אדריכלים</h3>
-      <p class="history-cta">לעמוד המשרד ←</p>
-    </a>
+    <div class="history-block red" lang="he" dir="rtl">
+      <h3><a href="#" data-goto="architechteam">ענת אילון אדריכלים | archiTECHteam</a></h3>
+      <p>נוסד בשנת 2005 על ידי האדריכלית ענת אילון, archiTECHteam מביא פילוסופיה ייחודית של דמיון ומינימליזם לתכנון — עיצוב מתקדם, חד, פשוט ומדויק, המגיב באמת למקום.</p>
+      <p>המשרד צובר ניסיון עמוק בתכנון פרמטרי רב-תחומי לפרויקטים מורכבים, ומוסיף ערך ייחודי באמצעות פיתוח פרויקטים, פתרונות תכנון מיטביים וטכנולוגיות עדכניות בשיטות עיצוב ובנייה מתקדמות.</p>
+    </div>
+    <div class="history-block" lang="he" dir="rtl">
+      <h3><a href="#" data-goto="reznik">דוד רזניק–ברוך רזניק אדריכלים</a></h3>
+      <p>נוסד בירושלים בשנת 1958 על ידי האדריכל דוד רזניק — חתן פרס ישראל ואחד מגדולי האדריכלים הישראלים בדורו — ופעיל בירושלים עד היום, ומנוהל כיום על ידי האדריכל ברוך רזניק זה למעלה מ-35 שנה.</p>
+      <p>תיק הפרויקטים של המשרד משתרע על פני תכנון עירוני, מבני ציבור, מתחמי מגורים, פרויקטים מסחריים ועיצוב פנים עבור מגוון רחב של לקוחות.</p>
+    </div>
   </div>
 </div>
 
